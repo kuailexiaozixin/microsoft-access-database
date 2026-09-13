@@ -1,0 +1,7 @@
+﻿dbMemo "SQL" ="SELECT tOrders.*, tCustomers.FirstName, tCustomers.LastName\015\012FROM tOrders "
+    "INNER JOIN tCustomers ON tOrders.CustomerID = tCustomers.ID;\015\012"
+dbMemo "Connect" =""
+dbBoolean "ReturnsRecords" ="-1"
+dbInteger "ODBCTimeout" ="60"
+Begin
+End

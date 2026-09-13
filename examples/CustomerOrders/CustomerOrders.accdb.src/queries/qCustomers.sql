@@ -1,0 +1,4 @@
+﻿SELECT
+  tCustomers.*
+FROM
+  tCustomers;

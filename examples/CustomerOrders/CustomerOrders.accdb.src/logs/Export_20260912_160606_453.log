@@ -1,0 +1,246 @@
+﻿-------------------------------------
+Beginning Export of Source Files
+CustomerOrders.accdb
+VCS Version 5.0.1
+Export Format: 4.1.2
+Full Path: C:\Users\贺新\AppData\Roaming\WPS 灵犀\serverdir\user_skills\VBA\Microsoft-Access-DataBase\examples\CustomerOrders\CustomerOrders.accdb
+Export Folder: C:\Users\贺新\AppData\Roaming\WPS 灵犀\serverdir\user_skills\VBA\Microsoft-Access-DataBase\examples\CustomerOrders\CustomerOrders.accdb.src\
+Source: External API
+2026/9/12 16:06:06
+Performing Full Export
+Updated VCS (4.1.2 -> 5.0.1)
+Note: Export format 5.0.0 is available (currently using 4.1.2). Update via Options > Export when ready.
+-------------------------------------
+Scanning source files...
+No db connections found in this database.
+  Exporting CustomerOrders.accdb
+  Exporting CustomerOrders
+  Exporting stdole
+No vbe forms found in this database.
+No proj properties found in this database.
+No saved specs found in this database.
+  Exporting modNavigation
+No commandbars found in this database.
+No shared images found in this database.
+  Exporting Database Properties (DAO)
+No imex specs found in this database.
+  Exporting tCustomers
+    Sanitized in 0.001 seconds.
+  tCustomers (SQL)
+  Exporting tOrderItems
+    Sanitized in 0.001 seconds.
+  tOrderItems (SQL)
+  Exporting tOrders
+    Sanitized in 0.001 seconds.
+  tOrders (SQL)
+  Exporting fCustomerDetail
+Loading Printer info for: 'Microsoft Print to PDF'.
+    Sanitized in 0.005 seconds.
+  Exporting fStartup
+    Sanitized in 0.001 seconds.
+  Exporting fCustomerList
+    Sanitized in 0.002 seconds.
+  Exporting fOrderDetail
+    Sanitized in 0.002 seconds.
+  Exporting fOrderList
+    Sanitized in 0.002 seconds.
+  Exporting fOrderItemsSub
+    Sanitized in 0.002 seconds.
+No macros found in this database.
+  Exporting rOrderReport
+    Sanitized in 0.004 seconds.
+No table data found in this database.
+No table data macros found in this database.
+  Exporting tCustomerstOrders
+  Exporting tOrderstOrderItems
+No hidden attributes found in this database.
+Detected 17 export conflict(s):
+  project.json - Object: , File: 2026/9/12 16:04:07, Sync: 
+  vbe-project.json - Object: , File: 2026/9/12 16:04:07, Sync: 
+  vbe-references.json - Object: , File: 2026/9/12 16:04:08, Sync: 
+  modNavigation.bas - Object: 2026/2/8 18:40:37, File: 2026/9/12 16:05:13, Sync: 
+  dbs-properties.json - Object: , File: 2026/9/12 16:04:06, Sync: 
+  tCustomers.xml - Object: 2026/2/8 19:47:55, File: 2026/9/12 16:05:12, Sync: 
+  tOrderItems.xml - Object: 2026/2/8 19:48:01, File: 2026/9/12 16:05:13, Sync: 
+  tOrders.xml - Object: 2026/2/8 19:48:01, File: 2026/9/12 16:05:12, Sync: 
+  fCustomerDetail.bas - Object: 2026/2/8 19:47:55, File: 2026/9/12 16:05:10, Sync: 
+  fStartup.bas - Object: 2026/2/8 18:35:15, File: 2026/9/12 16:05:11, Sync: 
+  fCustomerList.bas - Object: 2026/2/8 19:47:53, File: 2026/9/12 16:05:10, Sync: 
+  fOrderDetail.bas - Object: 2026/2/8 19:48:01, File: 2026/9/12 16:05:10, Sync: 
+  fOrderList.bas - Object: 2026/2/8 19:47:59, File: 2026/9/12 16:05:09, Sync: 
+  fOrderItemsSub.bas - Object: 2026/2/8 19:48:01, File: 2026/9/12 16:05:11, Sync: 
+  rOrderReport.bas - Object: 2026/2/8 19:48:04, File: 2026/9/12 16:05:12, Sync: 
+  tCustomerstOrders.json - Object: , File: 2026/9/12 16:05:08, Sync: 
+  tOrderstOrderItems.json - Object: , File: 2026/9/12 16:05:08, Sync: 
+Auto-resolved 17 conflict(s) for agent operation.
+Resolving source conflicts
+  project.json (Overwrite)
+  vbe-project.json (Overwrite)
+  vbe-references.json (Overwrite)
+  modNavigation.bas (Overwrite)
+  dbs-properties.json (Overwrite)
+  tCustomers.xml (Overwrite)
+  tOrderItems.xml (Overwrite)
+  tOrders.xml (Overwrite)
+  fCustomerDetail.bas (Overwrite)
+  fStartup.bas (Overwrite)
+  fCustomerList.bas (Overwrite)
+  fOrderDetail.bas (Overwrite)
+  fOrderList.bas (Overwrite)
+  fOrderItemsSub.bas (Overwrite)
+  rOrderReport.bas (Overwrite)
+  tCustomerstOrders.json (Overwrite)
+  tOrderstOrderItems.json (Overwrite)
+Resolved 17 conflict(s): 17 overwritten, 0 skipped
+-------------------------------------
+Exporting project...          
+  CustomerOrders.accdb
+[1] project processed.
+-------------------------------------
+Exporting vb project...       
+  CustomerOrders
+[1] vb project processed.
+-------------------------------------
+Exporting vbe references...   
+  stdole
+[3] vbe references processed.
+-------------------------------------
+Exporting modules...          
+  modNavigation
+[1] modules processed.
+-------------------------------------
+Exporting themes...           
+  Office Theme
+[1] themes processed.
+-------------------------------------
+Exporting db properties...    
+  Database Properties (DAO)
+[37] db properties processed.
+-------------------------------------
+Exporting tables...           
+  tCustomers
+  tOrderItems
+  tOrders
+[3] tables processed.
+-------------------------------------
+Exporting queries...          
+  qCustomers
+    Sanitized in 0.000 seconds.
+  qCustomers (SQL)
+  qOrderItems
+    Sanitized in 0.000 seconds.
+  qOrderItems (SQL)
+  qOrderReport
+    Sanitized in 0.000 seconds.
+  qOrderReport (SQL)
+  qOrders
+    Sanitized in 0.000 seconds.
+  qOrders (SQL)
+[4] queries processed.
+-------------------------------------
+Exporting forms...            
+  fCustomerDetail
+  fStartup
+  fCustomerList
+  fOrderDetail
+  fOrderList
+  fOrderItemsSub
+[6] forms processed.
+-------------------------------------
+Exporting reports...          
+  rOrderReport
+[1] reports processed.
+-------------------------------------
+Exporting relations...        
+  tCustomerstOrders
+  tOrderstOrderItems
+[2] relations processed.
+-------------------------------------
+Exporting doc properties...   
+  Database Documents
+[2] doc properties processed.
+-------------------------------------
+Exporting nav pane groups...  
+  Groups
+[1] nav pane groups processed.
+-------------------------------------
+Done. (2 seconds)
+--------------------------------------------------
+                PERFORMANCE REPORTS
+--------------------------------------------------
+Category                      Count     Seconds
+--------------------------------------------------
+Forms                         6         0.64
+Queries                       4         0.22
+Tables                        3         0.16
+Project                       1         0.09
+Modules                       1         0.08
+Themes                        1         0.08
+Reports                       1         0.07
+DB Properties                 37        0.06
+Relations                     2         0.06
+VBE References                3         0.06
+VB Project                    1         0.05
+Nav Pane Groups               1         0.05
+Doc Properties                2         0.04
+CommandBars                   0         0.02
+Shared Images                 0         0.00
+DB Connections                0         0.00
+Hidden Attributes             0         0.00
+VBE Forms                     0         0.00
+IMEX Specs                    0         0.00
+Table Data Macros             0         0.00
+Macros                        0         0.00
+Proj Properties               0         0.00
+Table Data                    0         0.00
+Saved Specs                   0         0.00
+--------------------------------------------------
+TOTALS:                       63        1.69
+--------------------------------------------------
+
+--------------------------------------------------
+Operations                    Count     Seconds
+--------------------------------------------------
+Console Updates               17        0.46
+Scan DB Objects               1         0.34
+Read File Bytes               20        0.25
+Increment Progress            7         0.19
+App.SaveAsText()              11        0.10
+Convert to JSON               28        0.05
+Move File                     27        0.03
+Close Open Objects            1         0.03
+Sanitize File                 11        0.02
+Write File                    37        0.02
+Read File                     15        0.02
+Verify Path                   87        0.02
+Format SQL                    4         0.02
+App.ExportXML()               3         0.01
+Get File Property Hash        24        0.01
+Delete File                   39        0.01
+Quick Count Files             1         0.01
+Clear Orphaned Files          15        0.01
+Export VBE Module             1         0.01
+Get Modified Date             51        0.01
+Quick Count Objects           1         0.01
+Compute SHA256                79        0.01
+Save Table SQL                3         0.00
+Get @Folder Annotation        8         0.00
+Read File DevMode             7         0.00
+Save Query SQL                4         0.00
+Get VBA Hash                  8         0.00
+Scan Folder Contents (API)    9         0.00
+Sanitize XML                  3         0.00
+Export Theme                  1         0.00
+Format XML                    3         0.00
+File Pattern Exists (API)     10        0.00
+Cache Back-End Connections    1         0.00
+Check for linked table        3         0.00
+Sanitize VBA Code             7         0.00
+Clear Files by Ext            6         0.00
+modFileAccess.GetUncPath      1         0.00
+--------------------------------------------------
+Other Operations                        0.37
+TOTAL RUNTIME:                          2.00
+--------------------------------------------------
+
+

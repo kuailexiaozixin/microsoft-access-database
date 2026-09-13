@@ -1,0 +1,16 @@
+{
+  "description": "Microsoft-Access-DataBase 技能自带的通用前端库清单（供 Access 内嵌 Web 浏览器控件 / 仪表盘使用，与任何自研框架无关）。逐项 sha256 可离线校验完整性。",
+  "generated_by": "sha256sum",
+  "count": 8,
+  "total_bytes": 757670,
+  "files": [
+    {"path": "css/bootstrap.min.css", "size": 121200, "sha256": "f75e846cc83bd11432f4b1e21a45f31bc85283d11d372f7b19accd1bf6a2635c"},
+    {"path": "css/font-awesome.min.css", "size": 31000, "sha256": "799aeb25cc0373fdee0e1b1db7ad6c2f6a0e058dfadaa3379689f583213190bd"},
+    {"path": "js/bootstrap.min.js", "size": 37045, "sha256": "53964478a7c634e8dad34ecc303dd8048d00dce4993906de1bacf67f663486ef"},
+    {"path": "js/echarts-walden.js", "size": 13997, "sha256": "b7829543a963ec62084c7eba53314c6001d7b70fef4e7cc27a25140eda780a75"},
+    {"path": "js/echarts.min.js", "size": 539949, "sha256": "ee56e598e149e5111dbb59285c6ef92697043ad8f7dce81cdcd41fc1038027d9"},
+    {"path": "js/jquery-3.1.0.min.js", "size": 86351, "sha256": "702b9e051e82b32038ffdb33a4f7eb5f7b38f4cf6f514e4182d8898f4eb0b7fb"},
+    {"path": "js/jquery.slimscroll.min.js", "size": 4736, "sha256": "77178397a6bf306d1ed2592bfbf81b0d2e9b44fddba5cce5f5a22e56bae668f5"},
+    {"path": "js/jquery.uniform.standalone.js", "size": 8392, "sha256": "9b9c018277cf72b406f3ceee85b4fd7223fe09f9c7de57aa639da6db7c7afead"}
+  ]
+}

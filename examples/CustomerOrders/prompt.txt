@@ -1,0 +1,29 @@
+# CustomerOrders 生成 prompt（原始输入）
+
+本文件是「一个 prompt 生成完整 Access 业务系统」的输入模板（AI 文本化开发范式，见主 SKILL.md 阶段 6.2）。
+配套成品：同目录 `CustomerOrders.accdb` + `CustomerOrders.accdb.src/`（3 表 4 查询 6 窗体 1 报表 + 导航模块 + 全配置）。
+新项目从本模板起步：保留句式结构，替换业务对象、字段、界面布局与报表要求即可。
+
+---
+
+Let's use the ms-access-vcs skill to create a new microsoft access database to collect
+customer details, with fields like name, address, phone number etc. and also create orders,
+with parent fields like order number, order date, and child fields like item description,
+unit price net, quantity, sub total net.
+
+For the database we're going to need a startup screen with 3 buttons, customers, orders and
+exit, that opens automatically on startup.
+
+For customers we're going to need a list view by default with open, add and close buttons on
+the bottom. Open and add will take us to a data entry/edit screen with buttons Save and Close
+or Discard and Close.
+
+For orders we're going to need a similar setup, list view by default showing parent fields,
+with add, open and close buttons on the bottom. Open and add will take us to a data entry/edit
+screen with buttons Save and Close or Discard and Close. The add/edit screen should show parent
+order fields at the top and have a linked master-child subform for the order items below.
+
+Let's also add a Preview Order button to the add/edit order screen that opens an order report
+showing the customer details, order details and order items for the active order. We'll also
+need to add a total net to the bottom summing the order item sub total net records. Then include
+a line below for 10% GST, and a grand total inc. gst.

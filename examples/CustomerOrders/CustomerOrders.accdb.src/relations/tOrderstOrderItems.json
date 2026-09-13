@@ -1,0 +1,18 @@
+﻿{
+  "Info": {
+    "Class": "clsDbRelation",
+    "Description": "Database relationship"
+  },
+  "Items": {
+    "Name": "tOrderstOrderItems",
+    "Attributes": 0,
+    "Table": "tOrders",
+    "ForeignTable": "tOrderItems",
+    "Fields": [
+      {
+        "Name": "ID",
+        "ForeignName": "OrderID"
+      }
+    ]
+  }
+}

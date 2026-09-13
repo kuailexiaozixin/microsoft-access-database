@@ -1,0 +1,4 @@
+﻿SELECT
+  tOrderItems.*
+FROM
+  tOrderItems;

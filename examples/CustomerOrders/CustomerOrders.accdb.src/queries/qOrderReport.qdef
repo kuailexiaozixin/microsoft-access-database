@@ -1,0 +1,11 @@
+﻿dbMemo "SQL" ="SELECT tOrders.ID AS OrderID, tOrders.OrderNumber, tOrders.OrderDate, tCustomers"
+    ".FirstName, tCustomers.LastName, tCustomers.Address, tCustomers.City, tCustomers"
+    ".State, tCustomers.PostCode, tCustomers.Phone, tOrderItems.ItemDescription, tOrd"
+    "erItems.UnitPriceNet, tOrderItems.Quantity, tOrderItems.SubTotalNet\015\012FROM "
+    "(tOrders INNER JOIN tCustomers ON tOrders.CustomerID = tCustomers.ID) INNER JOIN"
+    " tOrderItems ON tOrders.ID = tOrderItems.OrderID;\015\012"
+dbMemo "Connect" =""
+dbBoolean "ReturnsRecords" ="-1"
+dbInteger "ODBCTimeout" ="60"
+Begin
+End

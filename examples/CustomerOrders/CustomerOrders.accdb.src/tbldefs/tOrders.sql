@@ -1,0 +1,6 @@
+﻿CREATE TABLE [tOrders] (
+  [ID] AUTOINCREMENT CONSTRAINT [PrimaryKey] PRIMARY KEY UNIQUE NOT NULL,
+  [CustomerID] LONG,
+  [OrderNumber] VARCHAR (255),
+  [OrderDate] DATETIME
+)
