@@ -1,0 +1,178 @@
+{
+  "_comment": "Microsoft-Access-DataBase 技能上游来源锁定清单（对齐 xlwings / fastapi 的 manifest + SYNCLOG 机制）。本技能 vendored 了多路开源 / 商业上游内容，本文件逐路登记其来源与注册时基线指纹；scripts/check_upstream_drift.py 据此离线检测漂移。local_dir 为固定目录名，上游出新版只改 manifest 的 ref / version，无需改路径。更新上游的规范流程：整体替换该目录内容（原文件永不手改）→ 跑 `python scripts/check_upstream_drift.py --register` 重算基线 → 在 SYNCLOG.md 追加一条记录。baseline_* 字段由 check_upstream_drift.py --register 计算并写回。约定：有 git 仓库的上游写 repo（用于 git ls-remote 更新提示），无 git 的网页/商业来源写 source_url；examples 用 track_relpaths 限定只跟踪开源积木（01_/02_/README.md 等技能自有件不跟踪，tracked:false）。",
+  "sources": [
+    {
+      "id": "mavcs-dist",
+      "name": "Microsoft Access Version Control System",
+      "local_dir": "Microsoft Access Version Control System",
+      "repo": "joyfullservice/msaccess-vcs-addin",
+      "ref": null,
+      "version": null,
+      "pinned_sha": null,
+      "kind": "open-source-compiled",
+      "registered_date": "2026-09-28",
+      "baseline_file_count": 5,
+      "baseline_total_bytes": 7846433,
+      "baseline_struct_hash": "6670c5e1b861ca161de686089541c2c895a14cd9da861e21e807d0f94d6decb5",
+      "baseline_content_hash": "6589cacbfc1e923c2188cd7eb2c0ae01faa9ef1cba58a58f38487d92ce3af610",
+      "note": "msaccess-vcs-addin 的编译分发物（Version Control.accda + 64 位 MSAccessVCSLib_win64.dll + Ribbon.json/xml + Worker.vbs），与 msaccess-vcs-addin 同属一个上游、不同形态。"
+    },
+    {
+      "id": "msaccess-vcs-addin",
+      "name": "msaccess-vcs-addin",
+      "local_dir": "msaccess-vcs-addin",
+      "repo": "joyfullservice/msaccess-vcs-addin",
+      "ref": "main",
+      "version": "5 (export format 5.0)",
+      "pinned_sha": null,
+      "kind": "open-source",
+      "registered_date": "2026-09-28",
+      "baseline_file_count": 552,
+      "baseline_total_bytes": 9269657,
+      "baseline_struct_hash": "2c538f93db6ae08c9e06bdadf486c013e39242d928388b1c304967bafba3f72e",
+      "baseline_content_hash": "a74c57e4e51a6da58af9fa3754ad0953a3772a67762843ce47c343698564456d",
+      "note": "VCS 加载项源码（含 .src、Wiki、docs、AGENTS.md / CLAUDE.md）；Version 5。"
+    },
+    {
+      "id": "msaccess-vcs-mcp",
+      "name": "msaccess-vcs-mcp",
+      "local_dir": "msaccess-vcs-mcp",
+      "repo": "joyfullservice/msaccess-vcs-mcp",
+      "ref": "main",
+      "version": "0.1.0",
+      "pinned_sha": null,
+      "kind": "open-source",
+      "registered_date": "2026-09-28",
+      "baseline_file_count": 70,
+      "baseline_total_bytes": 939364,
+      "baseline_struct_hash": "580dbd649fa16ecb9d9f0f7cdb817f19131b581f1d24c0b96fa0f7a2a383874f",
+      "baseline_content_hash": "84b73f098c253f2470f808ea9179edc59a31404d5289a096b2deea8599e686b8",
+      "note": "VCS 的 MCP 封装（Python 包），作者 Adam Waller；pyproject.toml 版本 0.1.0。"
+    },
+    {
+      "id": "vcs-v5.0.1-snapshot",
+      "name": "Version_Control_v5.0.1",
+      "local_dir": "Version_Control_v5.0.1",
+      "repo": "joyfullservice/msaccess-vcs-addin",
+      "ref": null,
+      "version": "5.0.1",
+      "pinned_sha": null,
+      "kind": "open-source-version-pinned",
+      "registered_date": "2026-09-28",
+      "baseline_file_count": 1,
+      "baseline_total_bytes": 14274560,
+      "baseline_struct_hash": "fd78e9646739df8de8941479aed205ba0d962b7d1ca6f40a128eb89e2f6211e1",
+      "baseline_content_hash": "5148c732530ef92b15cdda768faa31d2998e905524fa8781c4e8caf180c91097",
+      "note": "VCS 加载项锁定在 v5.0.1 的快照（仅 Version Control.accda）。"
+    },
+    {
+      "id": "mengwei-platform",
+      "name": "盟威Access快速开发平台V2.7.0版(64位)",
+      "local_dir": "盟威Access快速开发平台V2.7.0版(64位)",
+      "repo": null,
+      "ref": null,
+      "version": "2.7.0 (64-bit)",
+      "pinned_sha": null,
+      "kind": "commercial",
+      "source_url": "http://www.accessgood.com/",
+      "registered_date": "2026-09-28",
+      "baseline_file_count": 563,
+      "baseline_total_bytes": 19895219,
+      "baseline_struct_hash": "5048bace4498cbdd59eb6f325bcbf6988b4d30d27c930399aaa4778744fc7382",
+      "baseline_content_hash": "3a3fd0eb2711028820c72433804d15b99eabe5fc93411631ab4b7c4c9aa09f2d",
+      "note": "盟威商业快速开发平台发行物，来源 http://www.accessgood.com/（无公开 git 仓库）；含 Main.accdb / Download.accde / Update.accde / Data.accdb 等。"
+    },
+    {
+      "id": "edonsoft-framework",
+      "name": "Edonsoft Development Framework_x64",
+      "local_dir": "Edonsoft Development Framework_x64",
+      "repo": null,
+      "ref": null,
+      "version": null,
+      "pinned_sha": null,
+      "kind": "commercial",
+      "source_url": "http://www.edonsoft.com/access-framework",
+      "registered_date": "2026-09-28",
+      "baseline_file_count": 122,
+      "baseline_total_bytes": 15171334,
+      "baseline_struct_hash": "865f0441739cdab8de1259bbf62a56f5210124ae1a1f815bec9b44d3dc8e4ffa",
+      "baseline_content_hash": "2d4248b9487bd2ce99c41dbb9b2ac116cde98ad92625cae8c78335d0de070f75",
+      "note": "Edonsoft 框架（x64），来源 http://www.edonsoft.com/access-framework（无公开 git 仓库）；含 EdonSoft Development Framework.accdb / edonsoftCore.accde / Data.accdb + edonsoft-docs 自带文档。"
+    },
+    {
+      "id": "examples",
+      "name": "examples",
+      "local_dir": "examples",
+      "repo": null,
+      "ref": null,
+      "version": null,
+      "pinned_sha": null,
+      "kind": "mixed",
+      "registered_date": "2026-09-28",
+      "baseline_file_count": 90,
+      "baseline_total_bytes": 16015011,
+      "baseline_struct_hash": "e2747e829d90791d0dd4eea66ce91fb12e3c97b2ab737f8ebe45bc714fa95509",
+      "baseline_content_hash": "1b4768115e8aa614e4e3463db56bd41aebfd72ff04f4f16402799cab60507c02",
+      "note": "容器目录。仅下方 track_relpaths 列出的 5 个开源积木参与漂移跟踪；01_blank_db_to_vcs_loop / 02_edit_src_reimport / README.md 为技能自有、不参与跟踪（会随开发改动）。开源积木来源：AccessAI 等四个来自 github.com/miaowei2（AccessAI=miaowei2/accessAI，即 Access LLM Toolkit），CustomerOrders 来自 github.com/paramountsoftware/ms-access-ai-skill。",
+      "track_relpaths": [
+        "AccessAI",
+        "Access BOM Management System",
+        "Access DatePicker",
+        "Access VBA Modules Collection",
+        "CustomerOrders"
+      ],
+      "components": [
+        {
+          "name": "AccessAI",
+          "kind": "open-source",
+          "repo": "miaowei2/accessAI",
+          "source_url": "https://github.com/miaowei2/accessAI",
+          "tracked": true
+        },
+        {
+          "name": "Access BOM Management System",
+          "kind": "open-source",
+          "repo": "miaowei2",
+          "source_url": "https://github.com/miaowei2",
+          "tracked": true
+        },
+        {
+          "name": "Access DatePicker",
+          "kind": "open-source",
+          "repo": "miaowei2",
+          "source_url": "https://github.com/miaowei2",
+          "tracked": true
+        },
+        {
+          "name": "Access VBA Modules Collection",
+          "kind": "open-source",
+          "repo": "miaowei2",
+          "source_url": "https://github.com/miaowei2",
+          "tracked": true
+        },
+        {
+          "name": "CustomerOrders",
+          "kind": "open-source",
+          "repo": "paramountsoftware/ms-access-ai-skill",
+          "source_url": "https://github.com/paramountsoftware/ms-access-ai-skill/tree/main",
+          "tracked": true
+        },
+        {
+          "name": "01_blank_db_to_vcs_loop",
+          "kind": "skill-owned",
+          "tracked": false
+        },
+        {
+          "name": "02_edit_src_reimport",
+          "kind": "skill-owned",
+          "tracked": false
+        },
+        {
+          "name": "README.md",
+          "kind": "skill-owned",
+          "tracked": false
+        }
+      ]
+    }
+  ]
+}

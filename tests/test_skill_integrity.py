@@ -10,6 +10,11 @@ tests/test_skill_integrity.py
      导入前由脚本转 GBK 无 BOM）；宏无 BOM；
   4. 扫描技能自有文件，确认无自研框架专有残留（clsLog / Framework_* / 门禁数字 / TS_* 链接表等；
      `changelog.md` 是唯一记载变化处，豁免扫描）。
+  5. （上游漂移门禁）离线比对 `manifest.json` 登记的前 7 路上游 vendored 内容（Microsoft Access
+     Version Control System / msaccess-vcs-addin / msaccess-vcs-mcp / Version_Control_v5.0.1 /
+     盟威Access快速开发平台V2.7.0版(64位) / Edonsoft Development Framework_x64 / examples）的基线
+     指纹（struct/content 双哈希）。任何对 vendored 文件的"手改"都会偏离基线 → 门禁失败，
+     强制走"整体替换 + 重新 --register 基线 + 记 SYNCLOG"流程。复用 scripts/check_upstream_drift.py。
 
 运行：
   python tests/test_skill_integrity.py
@@ -18,6 +23,7 @@ tests/test_skill_integrity.py
 
 import os
 import re
+import importlib.util
 
 # 自研框架残留 token（changelog.md 除外：它是技能内唯一记载变化的地方，允许提及历史上的残留词）
 # 注意："Framework.accdb" 须排除 EdonSoft 底座真实文件名 "EdonSoft Development Framework.accdb"，
@@ -153,6 +159,30 @@ def collect_own_files():
     return out
 
 
+def _load_drift_module():
+    """动态加载 scripts/check_upstream_drift.py（仅加载，不执行其 main）。"""
+    script = os.path.join(SKILL_ROOT, "scripts", "check_upstream_drift.py")
+    spec = importlib.util.spec_from_file_location("check_upstream_drift", script)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _under_placeholder(p):
+    """p 的任意上级目录若是 vendored 占位目录（仅 README，发布态），则其子项目无需存在。"""
+    try:
+        drift = _load_drift_module()
+    except Exception:
+        return False
+    cur = os.path.dirname(os.path.abspath(p))
+    root = os.path.abspath(SKILL_ROOT)
+    while cur and cur != root:
+        if os.path.isdir(cur) and drift.is_placeholder(cur):
+            return True
+        cur = os.path.dirname(cur)
+    return False
+
+
 def main():
     failures = []
     checks = 0
@@ -167,6 +197,9 @@ def main():
         else:
             p = os.path.join(SKILL_ROOT, sp)
         if not os.path.isdir(p):
+            # 发布态 vendored 目录可能仅为 README 占位，其子项目无需存在
+            if _under_placeholder(p):
+                continue
             failures.append("子项目目录缺失: %s" % sp)
 
     # 2) 关键文件齐全
@@ -208,6 +241,38 @@ def main():
             if hit:
                 rel = os.path.relpath(fp, SKILL_ROOT)
                 failures.append("残留 '%s' 出现在 %s" % (tok, rel))
+
+    # 5) 上游 vendored 内容漂移检测（离线比对 manifest.json 登记基线）
+    #    目的：拦截"手改 vendored 上游文件"（.accda / .dll / 开源 .src / 第三方案例等）。
+    #    原则：上游文件原文件永不手改；任何合法更新都须整体替换 + 重新 --register 基线（并记 SYNCLOG）。
+    try:
+        drift = _load_drift_module()
+        manifest = drift.load_manifest()
+        for s in manifest["sources"]:
+            checks += 1
+            ld = os.path.join(SKILL_ROOT, s["local_dir"])
+            if not os.path.isdir(ld):
+                failures.append("上游目录缺失: %s" % s["local_dir"])
+                continue
+            # 占位目录（发布态仅 README.md）无 vendored 内容，跳过漂移门禁，避免误报
+            if drift.is_placeholder(ld):
+                continue
+            base_struct = s.get("baseline_struct_hash")
+            if not base_struct:
+                failures.append("上游未登记基线: %s（运行 scripts/check_upstream_drift.py --register）" % s["local_dir"])
+                continue
+            cur_struct, _, _ = drift.compute_struct(ld, s.get("track_relpaths"))
+            if cur_struct == base_struct:
+                continue
+            # struct 变了：算内容哈希确认是否真漂移（区分"真改动"与"云盘同步同名副本文"）
+            base_content = s.get("baseline_content_hash")
+            cur_content = drift.compute_content(ld, s.get("track_relpaths"))
+            if base_content and cur_content == base_content:
+                continue  # 仅结构变（疑似云盘同步副本文），不计入硬性失败
+            failures.append("上游漂移（手改 vendored 文件?）: %s" % s["local_dir"])
+    except Exception as e:
+        checks += 1
+        failures.append("上游漂移检测异常: %s" % e)
 
     # 报告
     print("=" * 60)

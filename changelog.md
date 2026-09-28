@@ -444,3 +444,38 @@
 - **路径说明**：主技能整体移至 `VBA\Microsoft-Access-DataBase\`（VBA 技能下），VBA-Docs 引用以 `..\VBA-Docs\` 相对路径；移动/云盘同步期间 examples/CustomerOrders 曾出现临时空壳，属同步正常现象，未做修复。
 - **验证口径**：四要素结构完整；>400 字符行仅剩 description 与 install 命令行；完整性 55/55 已确认（云盘同步完成后复跑）。
 - **测试脚本适配**：`tests/test_skill_integrity.py` REQUIRED_FILES 中 `vcs-index.json` 改为 `vcs-index.idx`——CustomerOrders 样例为 VCS 5.0.1 导出（vcs-options.json AddinVersion=5.0.1，二进制索引 vcs-index.idx；v4 才是 vcs-index.json）。v5 查询为 `.bas+.qdef+.sql` 三件套，SKILL.md 现有引用（qOrders.sql/tOrders.xml/tCustomerstOrders.json/fCustomerList.bas）均不受影响。
+
+## v2.24（AccessAI 例子升级替换：移除旧版、新版更名）
+
+- **背景**：用户提供升级版 AccessAI 项目（`examples/accessAI-main`，实为开源「Access LLM Toolkit」，作者缪炜），要求替换旧的 `examples/AccessAI` 例子，并更新所有相关引用。
+- **处理**：
+  - 移除旧 `examples/AccessAI`：经 `scripts/recycle.py` 移入 Windows 回收站（绝不永久删除，回收站可随时还原）；返回「成功 1 / 失败 0」。
+  - 更名新项目：同文件系统内 `examples/accessAI-main` → `examples/AccessAI`，接替旧项目位置。路径 `examples/AccessAI/` 保持不变，既有引用自动指向新内容。
+  - 更新三处文档描述（均保持 VBA 技能约定：内部引用用反引号、不带 `./`、语义由句子承担）：
+    - `README.md`（AI 能力节）：描述为升级版工具库——`CreateAIForm` 一键建窗体，支持流式输出、对话历史持久化（`tblChatHistory`）、Access SQL 助手、TXT/CSV/Word/Excel/PDF 文档问答、API Key 用 Windows DPAPI 加密存储。
+    - `SKILL.md`（阶段 6 任务要求）：标注为升级版「Access LLM Toolkit」并列出新增能力。
+    - `examples/README.md`（积木型案例表格）：同步新能力清单。
+- **验证口径**：`examples/AccessAI/README.md`、`AI.accdb` 等已就位；`SKILL.md`/`README.md`/`examples/README.md` 中 `examples/AccessAI/` 引用解析到新内容（除本条目描述外，技能内已无任何指向 `accessAI-main` 目录的有效引用）；`tests/test_skill_integrity.py` **55/55** 不受影响。
+
+## v2.25（建立上游漂移跟踪机制，门禁拦截手改 vendored 文件）
+
+- **背景**：本技能 vendored（引入并锁定）了 7 路开源 / 商业上游目录，参照 `VBA/xlwings`、`fastapi`、`hermes-business-agent` 三个技能的做法，建立可复现的漂移跟踪机制，防止上游文件被意外手改而无人察觉。
+- **7 路上游（含 provenance）**：`Microsoft Access Version Control System`（MAVCS 编译分发物，joyfullservice/msaccess-vcs-addin）、`msaccess-vcs-addin`（源码，main，Version 5）、`msaccess-vcs-mcp`（Python 封装，v0.1.0，Adam Waller）、`Version_Control_v5.0.1`（v5.0.1 锁定快照）、`盟威Access快速开发平台V2.7.0版(64位)`（商业件）、`Edonsoft Development Framework_x64`（商业件）、`examples`（混合容器：开源积木 AccessAI / Access BOM / DatePicker / VBA Modules + 技能自有 01/02/CustomerOrders/README）。
+- **新增三件套**：
+  - `manifest.json`：逐路登记来源（id / name / local_dir / repo / ref / version / kind / note）+ 注册时基线指纹（baseline_file_count / baseline_total_bytes / baseline_struct_hash / baseline_content_hash / registered_date）。`examples` 项额外含 `components[]` 区分开源与技能自有。
+  - `SYNCLOG.md`：日志流形式累积同步 / 漂移事件，首条记录机制建立 + 基线登记；约定"原文件永不手改，任何主动改动走整体替换 + 重新 `--register` + 记一条"。
+  - `scripts/check_upstream_drift.py`：离线 `struct_hash`（仅 stat，极快）+ `content_hash` 双哈希漂移检测；`--register` 重算并写回基线；`git ls-remote` 在线上游更新提示（默认只报告不报错，网络不可达时降级跳过）；只读写 manifest/SYNCLOG，绝不改 vendored 内容。
+- **门禁集成**：`tests/test_skill_integrity.py` 新增第 5 项检查——离线复用 `check_upstream_drift.py` 的 `compute_struct` / `compute_content` / `load_manifest`，逐路比对 `manifest.json` 基线；偏离即失败（强制走正规更新流程）。检查项由 55 → **62**（新增 7 路上游各 1 项）。
+- **验证口径**：`--register` 成功写回 7 路基线（MAVCS 5 文件/7MB、addin 552/8MB、mcp 70、v5.0.1 1/13MB、盟威 563/18MB、Edonsoft 122/14MB、examples 95/15MB）；独立漂移检测与门禁均报告全 UNCHANGED（退出码 0）。**负向验证**：在 `examples/` 临时植入测试文件 → 漂移检测与门禁均报 `上游漂移: examples` 并退出码 1，清理后恢复 62/62 全绿，确认门禁能真正拦截手改 vendored 文件。
+
+## v2.26（修正上游 provenance + examples 仅跟踪开源积木）
+
+- **背景**：用户补充了各上游的真实来源，并要求 `01_blank_db_to_vcs_loop`、`02_edit_src_reimport` 不参与跟踪（它们是技能自有、会随开发改动）。
+- **provenance 修正**（`manifest.json`）：
+  - `examples` 的 5 个开源积木：AccessAI 等四个来自 `github.com/miaowei2`（AccessAI 即 `miaowei2/accessAI`，Access LLM Toolkit），`CustomerOrders` 来自 `github.com/paramountsoftware/ms-access-ai-skill/tree/main`。components 每项加 `source_url` 与 `tracked` 标志。
+  - `盟威Access快速开发平台V2.7.0版(64位)` 加 `source_url=http://www.accessgood.com/`（商业件，无公开 git）。
+  - `Edonsoft Development Framework_x64` 加 `source_url=http://www.edonsoft.com/access-framework`（商业件，无公开 git）。
+  - 约定：有 git 仓库的上游写 `repo`（供 `git ls-remote` 更新提示），无 git 的网页/商业来源写 `source_url`。
+- **examples 跟踪范围收窄**：`examples` 源新增 `track_relpaths`（AccessAI / Access BOM Management System / Access DatePicker / Access VBA Modules Collection / CustomerOrders），漂移检测只对这些子目录计算基线；`01_blank_db_to_vcs_loop`、`02_edit_src_reimport`、`README.md` 标 `tracked:false` 被排除。`scripts/check_upstream_drift.py` 的 `walk_files/compute_struct/compute_content` 增加 `only_relpaths` 参数；`register()` 与 `main()` 及门禁 `tests/test_skill_integrity.py` 第 5 项均传入该参数。
+- **基线重算**：`--register` 后 examples 基线由 95 文件 → **90 文件**（排除 5 个不跟踪件）。
+- **验证口径**：重新登记后 7 路全 UNCHANGED（退出码 0）；门禁 62/62 全绿。**负向验证**：在【不跟踪】的 `01_blank_db_to_vcs_loop` 植入文件 → examples 仍 UNCHANGED（不误报）；在【跟踪】的 `AccessAI` 植入文件 → 报 `上游漂移: examples` 且门禁失败（退出码 1）；清理后恢复全绿。确认"排除自有件 + 仍拦截手改 vendored"两个目标同时达成。

@@ -15,7 +15,7 @@
 | `examples/Access DatePicker/` | 积木 | 阶段 4（控件） | 纯 VBA 日期/年月选择器（`Module_DatePicker.bas` / `Module_YearMonthPicker.bas` + `DatePicker.accdb` 演示库 + `使用说明.md`） |
 | `examples/Access VBA Modules Collection/` | 积木 | 阶段 2/3/4/5 | 高频模块集合：自动编号（阶段 2 编号字段）、字段校验/ADO/VBE 工具（阶段 3 代码库、阶段 4 控件）、导出 Excel/PPT/HTML（阶段 5 报表输出）；分阶段用法见 `SKILL.md` 对应步骤与 `README.md` + `examples/Access VBA Modules Collection/wiki/` 文档 |
 | `examples/Access BOM Management System/` | 积木 | 阶段 2（建模参考） | 多级 BOM 管理样例（`BOM.accdb` / `BOM.mdb` / `treeview.accdb`），父子结构落地的完整参照 |
-| `examples/AccessAI/` | 积木 | 阶段 6（AI 接入） | Access 内调用大模型的成熟实现（`AI.accdb` + `JsonConverter.bas` + `Module_Markdown.bas`） |
+| `examples/AccessAI/` | 积木 | 阶段 6（AI 接入） | Access 内调用大模型的成熟工具库（Access LLM Toolkit）：`CreateAIForm` 一键建窗体，支持流式输出、对话历史持久化、Access SQL 助手、TXT/CSV/Word/Excel/PDF 文档问答、DPAPI 加密 Key（`AI.accdb` + `JsonConverter.bas` + `Module_Markdown.bas`） |
 | `examples/CustomerOrders/` | 完整业务样例 | 全阶段（尤其 2/3/4/5/6.2） | 一个 prompt 生成的订单系统成品（3 表 4 查询 6 窗体 1 报表 + 导航模块 + 全配置）：9 份对象手册的活样例，`CustomerOrders.accdb` 开箱可运行，`.src` 逐对象对照格式规则学习；`prompt.txt` 是生成它的原始 prompt 模板——新库从 0 到 1 时保留句式、替换业务与字段即可 |
 
 想看更完整的分阶段走查与具体命令，回到 `SKILL.md` 与 `references/vba-com-automation.md`。

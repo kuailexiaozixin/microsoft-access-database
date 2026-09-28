@@ -354,7 +354,7 @@ VBA 在本技能中的编写落点有三处：**标准模块**（本阶段 3.1�
 ### 6.1 内接大模型（业务系统内聊天问答）
 
 - **任务内容**：让业务系统内嵌 AI 对话（多模型、连续对话、库表分析、SQL 建议）。
-- **任务要求**：用 `examples/AccessAI/README.md`（`AI.accdb` 完整实现 + `JsonConverter.bas` + `Module_Markdown.bas` 等源码）——把 AI 窗体与调用代码导入业务库即可；Edonsoft 框架自带 AccessAI（`basAI`、`FS_AIWeb`、`FS_ChatHistory`，见 `Edonsoft Development Framework_x64/edonsoft-docs/13-architecture-source.md` 第 9 节）。
+- **任务要求**：用 `examples/AccessAI/README.md`（升级版「Access LLM Toolkit」：`AI.accdb` 完整实现 + `JsonConverter.bas` + `Module_Markdown.bas` 等源码，支持流式输出、对话历史持久化、Access SQL 助手、TXT/CSV/Word/Excel/PDF 文档问答、DPAPI 加密 Key）——把 AI 窗体与调用代码导入业务库即可；Edonsoft 框架自带 AccessAI（`basAI`、`FS_AIWeb`、`FS_ChatHistory`，见 `Edonsoft Development Framework_x64/edonsoft-docs/13-architecture-source.md` 第 9 节）。
 - **输出物**：可对话的 AI 窗体 + 调用入口。
 - **VCS 融入**：导入 AI 窗体/模块后立即 FullExport + 漂移核验，把 AI 能力纳入文本源管理（同 2.1 闭环）。
 

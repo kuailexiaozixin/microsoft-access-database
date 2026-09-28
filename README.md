@@ -26,7 +26,7 @@
 - `examples/Access VBA Modules Collection/README.md`：高频能力模块集合（自动编号 `basAutoNumStr`、字段校验 `ClsFieldValidator`、ADO 数据访问 `ADOExecute`、导出 Excel/PPT/HTML、VBE 工具 `modVBETools`），含 `examples/Access VBA Modules Collection/wiki/` 文档。
 
 **AI 能力**
-- `examples/AccessAI/README.md`：在 Access 内调用大模型的成熟实现（`JsonConverter.bas` / `Module_Markdown.bas`，`CreateAIForm` / `ConfigureApiKeys` / `ShowMarkdown`）。
+- `examples/AccessAI/README.md`：在 Access 内调用大模型的成熟工具库（开源「Access LLM Toolkit」，缪炜）：`CreateAIForm` 一键建窗体，支持流式输出、对话历史持久化（`tblChatHistory`）、Access SQL 助手、TXT/CSV/Word/Excel/PDF 文档问答，API Key 用 Windows DPAPI 加密存储（`JsonConverter.bas` / `Module_Markdown.bas` + `AI.accdb` 示例库）。
 - AI 文本化开发范式（导出文本 → 编辑 → 构建回库）已内化为本技能工作流（见 `SKILL.md` 总览「统一闭环」与阶段 6.2）；其编辑规则与对象级手册为本技能 `references/` 自有文件——通用规则（对象配对、编码换行、安全删除）见 `references/vcs-text-editing.md`，9 份对象级手册（`forms.md`/`reports.md`/`images.md`/`conditional-formatting.md`/`queries.md`/`tables-and-relationships.md`/`vba.md`/`project-config.md`/`other-objects.md`）按该文件第六节映射表取用；完整样例与 prompt 模板见 `examples/CustomerOrders/`。
 
 **业务样例（`examples/` 下）**
@@ -58,19 +58,3 @@
 2. 动手前先读 `references/iron-laws.md` 把编码、类模块、工程定位、弹窗守卫这几条刻进习惯。
 3. 想照着真机跑一遍闭环，看 `examples/` 里的具体示例。
 4. 遇到问题按症状去 `docs/troubleshooting.md` 查；三套 VCS 工具的正确姿势读 `references/vcs-three-channels.md`。
-
-
-## 第三方资源（占位说明）
-
-以下目录包含第三方框架/安装包/源码仓库的本地副本，**未随本仓库分发**，以 `README.md` 占位并链接官方来源：
-
-| 目录 | 官方来源 |
-|---|---|
-| `Edonsoft Development Framework_x64/` | <http://www.edonsoft.com/access-framework-help.aspx> |
-| `Microsoft Access Version Control System/` | <https://github.com/joyfullservice/msaccess-vcs-addin> |
-| `Version_Control_v5.0.1/` | <https://github.com/joyfullservice/msaccess-vcs-addin/releases> |
-| `msaccess-vcs-addin/` | <https://github.com/joyfullservice/msaccess-vcs-addin> |
-| `msaccess-vcs-mcp/` | <https://github.com/joyfullservice/msaccess-vcs-mcp> |
-| `盟威Access快速开发平台V2.7.0版(64位)/` | <http://www.accessgood.com/> |
-
-克隆/下载方式见各占位 `README.md`。

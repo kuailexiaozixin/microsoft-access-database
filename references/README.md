@@ -26,6 +26,7 @@
   - 改**宏/共享图像/导入导出规格**——读 `references/other-objects.md`。
 - 「纠结盟威快速开发平台还是 Edonsoft 框架（能力差异对照/按需取用/与工作流的关系）」——读 `references/framework-comparison.md`。
 - 「选底座/部署时纠结 C/S 还是 B/S、Access 文件共享还是上 SQL Server」——读 `references/access-architecture-network.md`。
+- 「技能 vendored 了哪些上游开源 / 商业目录、怎么检测它们被手改、怎么合法更新上游」——来源与基线指纹登记见 `manifest.json`，离线漂移检测见 `scripts/check_upstream_drift.py`（`--register` 重算基线、`--no-upstream` 纯离线），门禁拦截见 `tests/test_skill_integrity.py` 第 5 项检查，同步 / 漂移事件流见 `SYNCLOG.md`（原则：vendored 原文件永不手改，更新须整体替换 + 重新 `--register` + 记一条）。
 
 所有「出错了怎么办」按症状去 `docs/troubleshooting.md` 查。
 
