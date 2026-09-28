@@ -6,7 +6,7 @@
 2. **积木型案例**（`examples/Access DatePicker/`、`examples/Access VBA Modules Collection/`、`examples/Access BOM Management System/`、`examples/AccessAI/`）：从上游仓库带入的成熟可复用组成部分，对应工作流中「控件 / 通用代码库 / 业务结构样例 / AI 能力」四个位置，直接拿去当作你自己系统的构建积木。
 3. **完整业务样例**（`examples/CustomerOrders/`）：一个 prompt 生成的订单系统成品（`CustomerOrders.accdb` + 全量 `.src` 文本源），是 9 份对象手册（`references/forms.md` 等）的**活样例**——每种对象的格式规则都能在示例里找到对应实际文件核对（窗体→`forms/fCustomerList.bas`+`.cls`、报表→`reports/rOrderReport.bas`、查询→`queries/qOrders.bas`+`.sql`、VBA→`modules/modNavigation.bas`、表→`tbldefs/tOrders.xml`、关系→`relations/tCustomerstOrders.json`、工程配置→顶层 6 个 `.json`），AI 生成/修改对象前先照此对一遍。
 
-> **发布说明**：本技能发布到公开仓库时，**来自开源仓库的示例目录一律以 `README.md` 占位**——`AccessAI` / `Access BOM Management System` / `Access DatePicker` / `Access VBA Modules Collection` / `CustomerOrders` 五个目录不随仓库分发 `.accdb` / `.mdb` / `.rar` 等重二进制与第三方源码，各自仅保留 `README.md`（写明来源与用途）。本地完整副本用于离线运行与漂移跟踪，清单见 `manifest.json`、同步记录见 `SYNCLOG.md`。
+> **发布说明**：本技能发布到公开仓库时，**来自开源仓库的示例目录一律以 `README.md` 占位**——`AccessAI` / `Access BOM Management System` / `Access DatePicker` / `Access VBA Modules Collection` / `CustomerOrders` 五个目录不随仓库分发 `.accdb` / `.mdb` / `.rar` 等重二进制与第三方源码，各自仅保留一份**生成的占位 `README.md`**（写明来源与用途，不使用上游原 README）。本地完整副本用于离线运行与漂移跟踪，清单见 `manifest.json`、同步记录见 `SYNCLOG.md`。
 
 每个闭环演示都是独立的 `run.py`，用 `python run.py` 即可运行（需要本机已装 Access 与技能目录运行位的 VCS 加载项 `Microsoft Access Version Control System\Version Control.accda`）。脚本会自己建临时库、调本技能 `scripts/` 里的工具、跑完清理，不污染你的任何文件。两个闭环演示的定位不同：**01 演示「初始化基线」**（库一建好就纳入版本控制，对应阶段 2.1 的 VCS 融入动作），**02 演示「增量回写」**（改文本源 → 原子重导入 → 运行断言，是阶段 3 改码与阶段 6.2 AI 改库的最小单元）。
 

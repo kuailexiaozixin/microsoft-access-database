@@ -483,7 +483,7 @@
 ## v2.27（发布态占位策略：来自开源仓库的示例目录一律 README 占位）
 
 - **背景**：用户明确"**来自于开源仓库的内容采用 README.md 占位**"。此前仅 6 个重二进制 vendored 顶层目录（MAVCS / addin / mcp / v5.0.1 / 盟威 / Edonsoft）在发布仓库里压成 README 占位；`examples` 下 5 个开源积木目录仍随仓库分发真实内容（含 `.accdb` / `.mdb` / `.rar` 等重二进制）。本轮把该策略推广到全部开源仓库来源。
-- **发布仓库处理**：`examples` 下 `AccessAI` / `Access BOM Management System` / `Access DatePicker` / `Access VBA Modules Collection` / `CustomerOrders` 五个目录在发布态一律只保留 `README.md`（本轮删除 86 个文件，`90 - 4 = 86`）。占位 README 规则与既有 vendored 目录一致——本地有 README 的保留其上游 README，本地无 README 的写入「（占位）」说明：`CustomerOrders` 本轮生成指向 `github.com/paramountsoftware/ms-access-ai-skill` 的占位说明；其余 4 个保留上游 README（Access LLM Toolkit / Access BOM 管理系统 / Access DatePicker / AccessDevelop）。技能自有件（`SKILL.md`、`references/`、`scripts/`、`tests/`、`templates/`、`assets/`、`examples/01_`、`02_`、`examples/README.md`）原样发布。
+- **发布仓库处理**：`examples` 下 `AccessAI` / `Access BOM Management System` / `Access DatePicker` / `Access VBA Modules Collection` / `CustomerOrders` 五个目录在发布态一律只保留 `README.md`（本轮删除 86 个文件，`90 - 4 = 86`）。占位目录的 `README.md` 一律使用**生成的「（占位）」说明**（不使用上游原 README），统一写法：标题（占位）+「本目录未随本仓库分发，仅作占位说明」+ 内容 / 上游来源 / 在技能中的用途。本轮 11 个占位目录（6 vendored + 5 开源积木）全部改为生成式——4 个示例目录与 `msaccess-vcs-addin` / `msaccess-vcs-mcp` 原先保留的上游 README 被替换为生成说明，`msaccess-vcs-addin` 下 `docs/`、`Wiki/`、`Testing/Fixtures/` 三个上游子 README 一并移除（6 改 3 删）。技能自有件（`SKILL.md`、`references/`、`scripts/`、`tests/`、`templates/`、`assets/`、`examples/01_`、`02_`、`examples/README.md`）原样发布。
 - **漂移脚本**（`scripts/check_upstream_drift.py`）：
   - 新增 `source_is_placeholder(local_dir, only_relpaths=None)`——在 `is_placeholder` 基础上支持 `track_relpaths`：当**所有**被跟踪子路径都是"仅 README.md"的占位目录时，整个来源视为占位并跳过。解决 `examples` 这种"混合容器"在发布态（5 个子目录变占位、但 `01_`/`02_`/`README.md` 仍是真实技能自有件）被误判漂移的问题。
   - `main()` 占位判定由 `is_placeholder(ld)` 升级为 `source_is_placeholder(ld, s.get("track_relpaths"))`。
@@ -491,5 +491,5 @@
 - **门禁**（`tests/test_skill_integrity.py`）：
   - 第 2 项「关键文件齐全」：`REQUIRED_FILES` 里 9 条 `examples/CustomerOrders/...` 路径，若其上级目录为占位则跳过（新增 `_under_placeholder(p)` 守卫），避免发布态误报"关键文件缺失"。
   - 第 5 项「上游漂移」：改用 `source_is_placeholder(ld, s.get("track_relpaths"))`，与漂移脚本口径一致。
-- **同步脚本**（工作区 `sync_mad.py`，不进技能包）：新增 `EXCLUDE_OPENSOURCE_EXAMPLES`（5 个示例目录）+ `is_placeholder_rel()` + `GENERATED_PLACEHOLDER_README`（为本地无 README 的占位目录生成说明）；`build_target_set()` 与删除保留规则统一按"占位目录只留 README.md"处理。
-- **验证口径**：发布克隆内门禁 **62/62** 全绿；漂移检测在发布态 7 路全部 `PLACEHOLDER(跳过)`、本地完整态 7 路全部 `UNCHANGED`（examples 仍 90 文件）；发布态全仓库 >1MB 文件仅剩技能自有 `references/开发财务管理系统.pdf`（2.5MB，非开源仓库来源，按指令保留）。**负向验证**：在发布克隆的 `examples/AccessAI` 植入非 README 文件 → 立即报 `LOCAL_DRIFT` 且门禁失败（`上游漂移: examples`，退出码 1）；清理后恢复 `PLACEHOLDER` 与 62/62 全绿——证明占位跳过不是无差别屏蔽。
+- **同步脚本**（工作区 `sync_mad.py`，不进技能包）：新增 `EXCLUDE_OPENSOURCE_EXAMPLES`（5 个示例目录）+ `is_placeholder_rel()` + `GENERATED_PLACEHOLDER_README`（**登记全部 11 个占位目录的生成式 README，作为发布态 README 的唯一真相源**）；`build_target_set()` 不从占位目录复制任何文件，删除规则改为占位目录内文件全删、随后统一写回生成 README，并在收尾校验"每个占位目录仅有 README.md"。
+- **验证口径**：发布克隆内门禁 **62/62** 全绿；漂移检测在发布态 7 路全部 `PLACEHOLDER(跳过)`、本地完整态 7 路全部 `UNCHANGED`（examples 仍 90 文件）；发布态全仓库 >1MB 文件仅剩技能自有 `references/开发财务管理系统.pdf`（2.5MB，非开源仓库来源，按指令保留）。**负向验证**：在发布克隆的 `examples/AccessAI` 植入非 README 文件 → 立即报 `LOCAL_DRIFT` 且门禁失败（`上游漂移: examples`，退出码 1）；清理后恢复 `PLACEHOLDER` 与 62/62 全绿——证明占位跳过不是无差别屏蔽。另：11 个占位目录 README 首行均为「（占位）」、无上游原 README 残留（同步脚本内置校验通过）。
