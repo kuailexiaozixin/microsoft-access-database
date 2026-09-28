@@ -1,4 +1,0 @@
-﻿SELECT
-  tOrderItems.*
-FROM
-  tOrderItems;

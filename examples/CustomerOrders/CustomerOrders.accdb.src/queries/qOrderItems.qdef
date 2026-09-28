@@ -1,6 +1,0 @@
-﻿dbMemo "SQL" ="SELECT tOrderItems.*\015\012FROM tOrderItems;\015\012"
-dbMemo "Connect" =""
-dbBoolean "ReturnsRecords" ="-1"
-dbInteger "ODBCTimeout" ="60"
-Begin
-End

@@ -207,6 +207,9 @@ def main():
         checks += 1
         p = os.path.join(SKILL_ROOT, rf)
         if not os.path.isfile(p):
+            # 发布态：来自开源仓库的示例目录被压成 README 占位，其下文件无需存在
+            if _under_placeholder(p):
+                continue
             failures.append("关键文件缺失: %s" % rf)
 
     # 3) 模板编码：标准模块 / 类模块 = UTF-8-BOM（与 .src 一致，导入前由脚本转 GBK 无 BOM）
@@ -254,8 +257,9 @@ def main():
             if not os.path.isdir(ld):
                 failures.append("上游目录缺失: %s" % s["local_dir"])
                 continue
-            # 占位目录（发布态仅 README.md）无 vendored 内容，跳过漂移门禁，避免误报
-            if drift.is_placeholder(ld):
+            # 占位来源（发布态仅 README.md，或 track_relpaths 下全部为占位）无 vendored 内容，
+            # 跳过漂移门禁，避免误报
+            if drift.source_is_placeholder(ld, s.get("track_relpaths")):
                 continue
             base_struct = s.get("baseline_struct_hash")
             if not base_struct:

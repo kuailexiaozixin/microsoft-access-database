@@ -1,4 +1,0 @@
-﻿SELECT
-  tCustomers.*
-FROM
-  tCustomers;

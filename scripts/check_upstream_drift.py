@@ -92,6 +92,30 @@ def is_placeholder(local_dir):
     return True
 
 
+def source_is_placeholder(local_dir, only_relpaths=None):
+    """整个来源在当前 checkout 里是否被压成占位（发布态）。
+
+    - 无 track_relpaths：等价于 is_placeholder(local_dir)（目录仅含 README.md）。
+    - 有 track_relpaths（如 examples 只跟踪其中若干开源积木）：
+      当**所有**被跟踪子路径都存在且都是"仅 README.md"的占位目录时，整个来源视为占位，
+      漂移门禁应跳过——发布态把开源积木目录压成占位，避免误报。
+      只要有任一被跟踪子路径缺失或含真实内容，就按正常漂移逻辑处理。
+    接受 str 或 Path。
+    """
+    local_dir = Path(local_dir)
+    if not only_relpaths:
+        return is_placeholder(local_dir)
+    seen = 0
+    for r in only_relpaths:
+        p = local_dir / r
+        if not p.is_dir():
+            return False
+        if not is_placeholder(p):
+            return False
+        seen += 1
+    return seen > 0
+
+
 def compute_struct(local_dir: Path, only_relpaths=None):
     rows = walk_files(local_dir, only_relpaths)
     payload = "".join("%s|%d\n" % (r, s) for r, s in rows).encode("utf-8")
@@ -166,6 +190,10 @@ def register():
         if not ld.is_dir():
             print("  !! 跳过（local_dir 不存在）: %s" % s["local_dir"])
             continue
+        if source_is_placeholder(ld, s.get("track_relpaths")):
+            # 占位态（发布仓库仅有 README）没有真实内容，若照算会用占位数据覆盖完整基线
+            print("  .. 跳过（占位态，不覆盖基线）: %s" % s["local_dir"])
+            continue
         struct_h, count, total = compute_struct(ld, s.get("track_relpaths"))
         content_h = compute_content(ld, s.get("track_relpaths"))
         s["registered_date"] = today
@@ -219,7 +247,7 @@ def main():
             print("  [缺失] %-50s local_dir 不存在" % s["local_dir"])
             local_drift = True
             continue
-        if is_placeholder(ld):
+        if source_is_placeholder(ld, s.get("track_relpaths")):
             print("  [%-26s] %-22s %-14s" % (s["local_dir"][:26], s.get("kind", ""), "PLACEHOLDER(跳过)"))
             continue
         cur_struct, cur_count, cur_total = compute_struct(ld, s.get("track_relpaths"))
