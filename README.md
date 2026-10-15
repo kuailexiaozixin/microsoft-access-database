@@ -19,7 +19,7 @@
 
 **现成底座（含完整文档）**
 - `盟威Access快速开发平台V2.7.0版(64位)/`：企业级快速开发平台，含登录、权限、动态菜单、主界面等开箱即用能力（`.accdb`/`.accde` + 后端 `Data.accdb`）；完整开发教程见其自带文档 `盟威Access快速开发平台V2.7.0版(64位)/Access2016报销管理系统案例开发教程.pdf`（平台概述 → 程序设计文档 → 表/查询/窗体/报表 → 用户权限设计，九章完整示范一个报销系统的开发全过程）。
-- `Edonsoft Development Framework_x64/`：同类企业框架（前端宿主库 + 核心编译库 + 后端 `Data.accdb`），18 项内建能力；官方帮助页全部栏目已完整转写为自带文档 `Edonsoft Development Framework_x64/edonsoft-docs/`（总纲 `framework-overview.md`、架构 `13-architecture-source.md`、功能主题 `01-quickstart.md` ~ `12-faq.md`、60 个公开函数见 `Edonsoft Development Framework_x64/edonsoft-docs/api/`）。
+- `Edonsoft Development Framework_x64/`：同类企业框架（前端宿主库 + 核心编译库 + 后端 `Data.accdb`），18 项内建能力，内置库为 v202610.01（2026-10-09）；官方帮助页 18 个栏目已完整转写为自带文档 `Edonsoft Development Framework_x64/edonsoft-docs/`（总纲 `framework-overview.md`、架构 `13-architecture-source.md`、功能主题 `01-quickstart.md` ~ `18-date-picker.md`、80 个公开函数索引 `11-api.md` 与分类正文 `Edonsoft Development Framework_x64/edonsoft-docs/api/`）。
 
 **通用 UI 控件（`examples/` 下，可复用组成部分）**
 - `examples/Access DatePicker/README.md`：纯 VBA、零依赖的日期/年月选择器（`CreateDatePickerForm` / `ShowDatePicker` / `ShowYearMonthPicker`），含演示库与 `使用说明.md`。

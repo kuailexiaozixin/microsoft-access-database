@@ -95,14 +95,14 @@ description: Microsoft Access 数据库应用系统开发技能（通用、不�
     - **源码与组成**：盟威库以加密/向导形态发布（`反编译打开Main.accdb.vbs` 提供 `/decompile` 入口），借鉴其组件划分与向导产物（自动编号、数据模块向导、导航菜单、查阅列表、启动菜单、报表向导、用户权限），不直接改库。
     - **可见可读部分**：`Config.ini`（登录/主题/自动登录配置格式，8.2 引用）、`Images/`（登录界面与主题图片：login_classic/login_standard/head.jpg/progress.jpg，4.2 界面资源参考）、教程 PDF（九章完整案例）。
   - **Edonsoft 开发框架**（`Edonsoft Development Framework_x64/`）：
-    - **组成**：`EdonSoft Development Framework.accdb`（前端宿主库）、`edonsoftCore.accde`（核心编译库）、`Data.accdb`（数据后端）、`appsettings.json`（连接配置）、`assets/`（主题/前端资源）。
-    - **能力与源码落点已按阶段融入工作流各步骤**（各步骤处均给出真实窗体/模块/函数落点，已枚举核实）：
+    - **组成**：`EdonSoft Development Framework.accdb`（前端宿主库）、`edonsoftCore.accde`（核心编译库）、`Data.accdb`（数据后端）、`appsettings.json`（连接配置）、`assets/`（主题/前端资源，含 v202610.01 新增的 `treeview`、`datatable` 两组 Web 控件资源）。
+    - **能力与源码落点已按阶段融入工作流各步骤**（各步骤处均给出真实窗体/模块/函数落点，枚举核实自 v202607.01 前端库）：
       - 登录/RBAC → 8.2；通用查询 → 2.4；公共函数/操作日志 → 3.1；代码生成器 → 4.1
       - 搜索组合框/单据选择/进度条 → 4.2；动态菜单/待办/仪表盘 → 4.3；AccessAI → 6.1
       - 链接表/升迁/多后端 → 8.1；自动更新/设置 → 8.3
       - 完整落点清单见 `13-architecture-source.md` 第 8 节表格；框架库本体以 accde/加密发布，借鉴其落点与划分，不直接修改。
-    - **文档**：设计理念见 `framework-overview.md`；架构详述（前后端分离、三后端、RBAC、动态菜单 `FArguments`、`mode/` 源码目录、32/64 位）见 `13-architecture-source.md`；其余能力按官方帮助页左侧菜单完整转写为 `01-quickstart.md`~`12-faq.md` 与 `api/`（60 个公开函数，7 类）。
-    - **可见可读部分**：`framework-overview.md` 第 4 节为 COM 枚举核实的对象清单（AllForms/AllModules）与可见源码模块清单（用途与可移植见 3.1）；`appsettings.json`（多后端连接配置 ActiveBackend/Backends[]，8.1 引用）；`assets/`（css/js/images/Theme 前端资源，4.2 参考）。
+    - **文档**：设计理念见 `framework-overview.md`；架构详述（前后端分离、三后端、RBAC、动态菜单 `FArguments`、`mode/` 源码目录、32/64 位）见 `13-architecture-source.md`；其余能力按官方帮助页左侧菜单 18 个栏目完整转写为 `01-quickstart.md`~`18-date-picker.md` 与 `api/`（v202610.01 帮助页登记 80 个公开函数、11 类，索引见 `11-api.md`）。v202610.01 新增的 AccessTreeView、AccessDataTable、邮件中心与日期/年月选择控件已各有主题文档（`14-treeview.md`、`15-datatable.md`、`16-mail.md`、`18-date-picker.md`），尚未融入上面按阶段的落点映射。
+    - **可见可读部分**：`framework-overview.md` 第 4 节为 COM 枚举核实的对象清单（AllForms/AllModules，枚举自 v202607.01 前端库，v202610.01 新增窗体待重枚举）与可见源码模块清单（用途与可移植见 3.1）；`appsettings.json`（多后端连接配置 ActiveBackend/Backends[]，8.1 引用）；`assets/`（css/js/images/Theme/treeview/datatable 前端资源，4.2 参考）。
   - **两框架差异对照**（各能力的实现方式、文档形态、借鉴场景对比）见 `references/framework-comparison.md`——它是**对照参考不是选型决策**：两框架能力有重叠时，按对照表选实现更成熟或更贴近业务形态的借鉴。
 - **输出物**：框架积木地图（能力 → 阶段 → 文档 → 用法，见上两段映射）。
 
@@ -242,7 +242,7 @@ VBA 在本技能中的编写落点有三处：**标准模块**（本阶段 3.1�
     - Excel/PPT/HTML 导出（`modExportToExcel`/`modExportToPPT`/`modHTMLExport`/`modPasteDataToExcel`/`basExportChart`）、VBE 工具（`modVBETools`，批量注入标准错误处理）
     - 每个模块的用途、接口与用法见其 README 与 `wiki/`；财务系统第 5 章示范了模块与通用/专用函数的分层；需要新写时用 `templates/standard-module-stub.bas` 起步；
   - **生产级模块分层范本**：`msaccess-vcs-addin\Version Control.accda.src\modules\` 按 API/Core/Infrastructure/Install/Integration/Interfaces/Lib/Tests/Utility 十目录组织——真实加载项工程的模块划分与错误处理方式，写自己的通用模块库前可对照；
-  - **公开 API 面范本**：Edonsoft 把 60 个公开函数按 7 类组织（编号/SQL/窗体记录/杂项/IO/UI 交互/安全，全部 `Application.Run` 可调用，见 `Edonsoft Development Framework_x64/edonsoft-docs/11-api.md` 与 `api/` 目录）；代表性落点：`AutoNumStr`（流水号）、`ReadRecord`/`WriteRecord`/`DeleteRecord`（记录读写）、`JsonConverter`（JSON）、操作日志 `WriteLog`/`AuditData`（审计字段，见 `13-architecture-source.md` 第 8 节第 9/18 行）；
+  - **公开 API 面范本**：Edonsoft 把 80 个公开函数按 11 类组织（编号与数值 / SQL 与数据读取 / 表单与记录 / 日期·对象·设置 / 导出·文件·系统 / UI 与交互 / 安全与权限 / AI 与 Markdown / 日期与年月选择 / Web 数据控件 / 邮件服务，全部 `Application.Run` 可调用，见 `Edonsoft Development Framework_x64/edonsoft-docs/11-api.md` 与 `api/` 目录）；代表性落点：`AutoNumStr`（流水号）、`ReadRecord`/`WriteRecord`/`DeleteRecord`（记录读写）、`JsonConverter`（JSON）、操作日志 `WriteLog`/`AuditData`（审计字段，见 `13-architecture-source.md` 第 8 节第 9/18 行）；
   - **框架可见源码模块**
   - **记录集参考**：DAO 记录集操作官方做法（增删改查、遍历、一对多关系）见 `..\VBA-Docs\access\Concepts\Data-Access-Objects\`（27 篇）与 `ActiveX-Data-Objects\`（ADO）；
   - **对象模型 API 单页**：Access 应用级对象（`Application.CurrentDb`/`CurrentProject`/`CurrentUser`、`DoCmd.RunSQL`/`OpenForm`、`Module.AddFromString`）按名查 `..\VBA-Docs\api\Access.*.md`（总索引 `api\Access.md`、`api\overview\Access.md`）；
