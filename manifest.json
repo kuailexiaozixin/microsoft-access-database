@@ -95,10 +95,10 @@
       "source_url": "https://www.edonsoft.com/access-framework",
       "registered_date": "2026-10-15",
       "baseline_file_count": 142,
-      "baseline_total_bytes": 12173102,
-      "baseline_struct_hash": "fa7eee413c1cc2f6079a384d9b55f666c17df0018c03cdc9616e1f6bfcb54356",
-      "baseline_content_hash": "2a8df75e596ae792e06d7523c0b1a29f42581acf5d30758cd048efdc389b5166",
-      "note": "Edonsoft 框架（x64），来源 https://www.edonsoft.com/access-framework、帮助文档 https://www.edonsoft.com/access-framework-help.aspx（均无公开 git 仓库）。当前为上游 v202610.01（2026-10-09 发布，官方产品页列为当前版本）整体替换件：EdonSoft Development Framework.accdb / edonsoftCore.accde / Data.accdb / appsettings.json 取包内时间戳 2026-10-09 14:05-14:07；assets/ 新增 treeview、datatable 两组 Web 控件资源。edonsoft-docs/ 已按 2026-10-15 抓取的官方帮助页 18 个栏目重新完整转写：主题文档 01-12 与 14-18（新增 18-date-picker.md）、api/01-07 刷新、新增 api/08-ai-markdown.md / 09-date-picker.md / 10-treeview.md / 11-datatable.md / 12-mail.md，11-api.md 现为官方帮助页登记的 11 类 80 个公开函数（Web 数据控件一类按控件拆成两份文档，故共 12 份）。framework-overview.md 与 13-architecture-source.md 的对象清单仍来自 v202607.01 的 COM 枚举，v202610.01 新增的树控件、Web 数据表格与邮件中心窗体需真机重新枚举后补录。"
+      "baseline_total_bytes": 12179806,
+      "baseline_struct_hash": "76103d982a90bc02ef5c635cfd36b42910baa775c7d2308a866b771ef5f7d2b0",
+      "baseline_content_hash": "eb7fa404cfd9a53ab0fefc8fc96d0d97e89566db748efadbdcc8ec49e7238e40",
+      "note": "Edonsoft 框架（x64），来源 https://www.edonsoft.com/access-framework、帮助文档 https://www.edonsoft.com/access-framework-help.aspx（均无公开 git 仓库）。当前为上游 v202610.01（2026-10-09 发布，官方产品页列为当前版本）整体替换件：EdonSoft Development Framework.accdb / edonsoftCore.accde / Data.accdb / appsettings.json 取包内时间戳 2026-10-09 14:05-14:07；assets/ 新增 treeview、datatable 两组 Web 控件资源。edonsoft-docs/ 已按 2026-10-15 抓取的官方帮助页 18 个栏目重新完整转写：主题文档 01-12 与 14-18（新增 18-date-picker.md）、api/01-07 刷新、新增 api/08-ai-markdown.md / 09-date-picker.md / 10-treeview.md / 11-datatable.md / 12-mail.md，11-api.md 现为官方帮助页登记的 11 类 80 个公开函数（Web 数据控件一类按控件拆成两份文档，故共 12 份）。framework-overview.md 第 4 节对象清单与 13-architecture-source.md 第 13 节验证记录已在 2026-10-15 用 v202610.01 前端库真机重枚举刷新（56 窗体 / 10 模块 / 1 宏 / 0 报表 / 24 表定义 / 105 查询定义，含邮件中心四窗体与 basMailFormBuilder 模块）。实测另记两条：包内 12 张链接表与 appsettings.json 的 DbConnect 均指向上游作者机器绝对路径，换机必须重链；v202607.01 曾复现的 Application.Run AutoNumStr 返回 U001，在 v202610.01 调用抛异常，疑为登录初始化前置未完成。"
     },
     {
       "id": "examples",

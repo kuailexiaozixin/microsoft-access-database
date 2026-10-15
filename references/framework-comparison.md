@@ -5,14 +5,14 @@
 
 ## 一、差异对照
 
-| 维度 | 盟威 Access 快速开发平台（V2.7.0，64 位） | Edonsoft 开发框架（v202607.01） |
+| 维度 | 盟威 Access 快速开发平台（V2.7.0，64 位） | Edonsoft 开发框架（v202610.01，2026-10-09） |
 |---|---|---|
 | **定位** | 企业级快速开发平台：按向导快速出业务系统，少碰底层基础设施 | AI 友好的开发框架：公开函数全部可 `Application.Run` 调用，代码驱动优先 |
 | **构成** | `Main.accdb`（客户端主程序）+ `Data.accdb`（后台数据库）+ `Update.accde`/`Download.accde`（自动升级）+ `RDPLib.ucl`（支持库）+ `Config.ini` | 前端宿主库 `EdonSoft Development Framework.accdb` + 核心编译库 `EdonSoftCore.accde` + 数据后端 `Data.accdb` + `appsettings.json`（连接配置）+ `assets\`（主题/前端资源） |
 | **前后端分离** | 主程序与数据分离（`Main.accdb` ↔ `Data.accdb`），带自动升级通道 | 宿主库与数据分离（前端库 ↔ `Data.accdb`），核心逻辑编译在 `EdonSoftCore.accde` |
 | **开发方式** | **向导驱动**：数据模块向导、导航菜单向导、查阅列表、启动菜单、报表向导（静态/动态/切换面板） | **代码生成器 + 公开 API**：`USysFrmCodeGeneratorPro` 生成业务窗体；v202610.01 帮助页登记 80 个公开函数、11 类（编号/SQL/窗体记录/日期·对象·设置/导出·文件·系统/UI 交互/安全权限/AI·Markdown/日期与年月选择/Web 数据控件/邮件服务） |
 | **AI 可驱动性** | 教程导向，窗体/向导为主；自动化需要走 COM 驱动界面与 VBA | **强**：核心库启动时自动引用（AutoExec → `basCoreReference` 修复引用 → 延迟绑定 `Application.Run "Main"`），全部公开函数可 COM `Run` 直调 |
-| **自包含自运行** | 随技能目录存放；`反编译打开Main.accdb.vbs` 提供反编译入口（框架库加密，常规开发用向导/成品） | 已验证自包含自运行：前端库/核心库/数据后端同目录即自启动，核心引用自动修复（`Broken=False`），`AutoNumStr` 等 API 实测可调 |
+| **自包含自运行** | 随技能目录存放；`反编译打开Main.accdb.vbs` 提供反编译入口（框架库加密，常规开发用向导/成品） | 目录内文件自包含：前端库/核心库/数据后端/`appsettings.json`/`assets\` 同目录即自启动，核心引用自动修复（实测 `Broken=False`，2026-10-15 复测）。**两处换机前置（2026-10-15 真机实测）**：① 包内 12 张链接表与 `appsettings.json` 的 `DbConnect` 硬编码上游作者机器绝对路径，换机须先用 DAO 重指（重指后「后端数据库连接失败」提示消失）；② `Application.Run` 直调在未完成登录初始化时抛 `disp_E_EXCEPTION`，v202607.01 曾实测到的 `AutoNumStr` 返回 `U001` 在 v202610.01 未复现 |
 | **升级部署** | 内置 `Update.accde`/`Download.accde` 自动升级机制（据教程） | 无独立升级通道（据文档；`07-upsize.md` 是数据库升迁到 SQL Server 的向导） |
 | **权限体系** | 教程第九章「用户权限设计」：权限向导式配置（据教程） | RBAC 角色/权限管理（据文档）：`USysFrmRoleManager`/`USysFrmPermissionSettings` 等 + `VerifyPassword` 登录 API |
 | **典型场景** | 不想碰底层、按向导快速出表单+报表的**人工开发**项目（报销系统等典型 MIS） | 需要 **AI 全程代码驱动**（登录/菜单/查询/单据/仪表盘/待办/升迁）的自动化开发项目 |
@@ -26,7 +26,7 @@
 | 升级部署要求 | 需要自动升级通道（Update/Download） | 单机/内网直接复制部署 |
 | 界面产出方式 | 向导生成（数据模块/导航/报表向导） | 代码生成器 + 公开 API 组装 |
 | 权限复杂度 | 向导式用户权限设计 | RBAC 角色权限（更细粒度） |
-| 文档形态 | 单教程九章（线性案例） | 主题文档 14 篇 + API 目录（参考型） |
+| 文档形态 | 单教程九章（线性案例） | 根目录 19 份主题文档 + `api/` 12 份分类正文（参考型） |
 | 主界面组件 | 查阅列表/启动菜单 | 待办（08）/仪表盘（09） |
 
 ## 三、与工作流的关系

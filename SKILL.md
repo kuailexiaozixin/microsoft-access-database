@@ -96,13 +96,14 @@ description: Microsoft Access 数据库应用系统开发技能（通用、不�
     - **可见可读部分**：`Config.ini`（登录/主题/自动登录配置格式，8.2 引用）、`Images/`（登录界面与主题图片：login_classic/login_standard/head.jpg/progress.jpg，4.2 界面资源参考）、教程 PDF（九章完整案例）。
   - **Edonsoft 开发框架**（`Edonsoft Development Framework_x64/`）：
     - **组成**：`EdonSoft Development Framework.accdb`（前端宿主库）、`edonsoftCore.accde`（核心编译库）、`Data.accdb`（数据后端）、`appsettings.json`（连接配置）、`assets/`（主题/前端资源，含 v202610.01 新增的 `treeview`、`datatable` 两组 Web 控件资源）。
-    - **能力与源码落点已按阶段融入工作流各步骤**（各步骤处均给出真实窗体/模块/函数落点，枚举核实自 v202607.01 前端库）：
+    - **能力与源码落点已按阶段融入工作流各步骤**（各步骤处均给出真实窗体/模块/函数落点，2026-10-15 在 v202610.01 前端库重新枚举核实：56 窗体 / 10 模块 / 1 宏 / 0 报表）：
       - 登录/RBAC → 8.2；通用查询 → 2.4；公共函数/操作日志 → 3.1；代码生成器 → 4.1
       - 搜索组合框/单据选择/进度条 → 4.2；动态菜单/待办/仪表盘 → 4.3；AccessAI → 6.1
       - 链接表/升迁/多后端 → 8.1；自动更新/设置 → 8.3
       - 完整落点清单见 `13-architecture-source.md` 第 8 节表格；框架库本体以 accde/加密发布，借鉴其落点与划分，不直接修改。
     - **文档**：设计理念见 `framework-overview.md`；架构详述（前后端分离、三后端、RBAC、动态菜单 `FArguments`、`mode/` 源码目录、32/64 位）见 `13-architecture-source.md`；其余能力按官方帮助页左侧菜单 18 个栏目完整转写为 `01-quickstart.md`~`18-date-picker.md` 与 `api/`（v202610.01 帮助页登记 80 个公开函数、11 类，索引见 `11-api.md`）。v202610.01 新增的 AccessTreeView、AccessDataTable、邮件中心与日期/年月选择控件已各有主题文档（`14-treeview.md`、`15-datatable.md`、`16-mail.md`、`18-date-picker.md`），尚未融入上面按阶段的落点映射。
-    - **可见可读部分**：`framework-overview.md` 第 4 节为 COM 枚举核实的对象清单（AllForms/AllModules，枚举自 v202607.01 前端库，v202610.01 新增窗体待重枚举）与可见源码模块清单（用途与可移植见 3.1）；`appsettings.json`（多后端连接配置 ActiveBackend/Backends[]，8.1 引用）；`assets/`（css/js/images/Theme/treeview/datatable 前端资源，4.2 参考）。
+    - **可见可读部分**：`framework-overview.md` 第 4 节为 COM 枚举核实的对象清单（AllForms 56 / AllModules 10 / AllMacros 1 / AllReports 0 / TableDefs 24 / QueryDefs 105，2026-10-15 在 v202610.01 前端库重枚举；105 个查询定义中 102 个是 `~sq_` 前缀的宏临时查询，来自上游作者另一套生产项目，不属框架能力）与可见源码模块清单（用途与可移植见 3.1）；`appsettings.json`（多后端连接配置 ActiveBackend/Backends[]，8.1 引用）；`assets/`（css/js/images/Theme/treeview/datatable 前端资源，4.2 参考）。
+    - **换机使用前置（2026-10-15 真机实测）**：① 包内 12 张链接表与 `appsettings.json` 的 `DbConnect` 硬编码上游作者机器绝对路径，直接打开会弹「后端数据库连接失败」——先在只读副本上用 DAO 重指（`td.Connect = ";DATABASE=<本地 Data.accdb 路径>"` 后 `RefreshLink()`，无需独占打开），重指后提示消失；② `Application.Run` 在未完成登录初始化时抛 `disp_E_EXCEPTION`，调用公开函数前需先完成登录（历史版本 v202607.01 曾实测 `AutoNumStr` 返回 `U001`，v202610.01 未复现，待登录后复测）；③ `USysFrmAccessTreeView` / `USysFrmAccessDataTable` 不在发布包内，是 `BuildAccessTreeViewForm` / `BuildAccessDataTableForm` 的生成产物，需现场生成。
   - **两框架差异对照**（各能力的实现方式、文档形态、借鉴场景对比）见 `references/framework-comparison.md`——它是**对照参考不是选型决策**：两框架能力有重叠时，按对照表选实现更成熟或更贴近业务形态的借鉴。
 - **输出物**：框架积木地图（能力 → 阶段 → 文档 → 用法，见上两段映射）。
 
