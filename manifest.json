@@ -95,10 +95,10 @@
       "source_url": "https://www.edonsoft.com/access-framework",
       "registered_date": "2026-10-15",
       "baseline_file_count": 142,
-      "baseline_total_bytes": 12179806,
-      "baseline_struct_hash": "76103d982a90bc02ef5c635cfd36b42910baa775c7d2308a866b771ef5f7d2b0",
-      "baseline_content_hash": "eb7fa404cfd9a53ab0fefc8fc96d0d97e89566db748efadbdcc8ec49e7238e40",
-      "note": "Edonsoft 框架（x64），来源 https://www.edonsoft.com/access-framework、帮助文档 https://www.edonsoft.com/access-framework-help.aspx（均无公开 git 仓库）。当前为上游 v202610.01（2026-10-09 发布，官方产品页列为当前版本）整体替换件：EdonSoft Development Framework.accdb / edonsoftCore.accde / Data.accdb / appsettings.json 取包内时间戳 2026-10-09 14:05-14:07；assets/ 新增 treeview、datatable 两组 Web 控件资源。edonsoft-docs/ 已按 2026-10-15 抓取的官方帮助页 18 个栏目重新完整转写：主题文档 01-12 与 14-18（新增 18-date-picker.md）、api/01-07 刷新、新增 api/08-ai-markdown.md / 09-date-picker.md / 10-treeview.md / 11-datatable.md / 12-mail.md，11-api.md 现为官方帮助页登记的 11 类 80 个公开函数（Web 数据控件一类按控件拆成两份文档，故共 12 份）。framework-overview.md 第 4 节对象清单与 13-architecture-source.md 第 13 节验证记录已在 2026-10-15 用 v202610.01 前端库真机重枚举刷新（56 窗体 / 10 模块 / 1 宏 / 0 报表 / 24 表定义 / 105 查询定义，含邮件中心四窗体与 basMailFormBuilder 模块）。实测另记两条：包内 12 张链接表与 appsettings.json 的 DbConnect 均指向上游作者机器绝对路径，换机必须重链；v202607.01 曾复现的 Application.Run AutoNumStr 返回 U001，在 v202610.01 调用抛异常，疑为登录初始化前置未完成。"
+      "baseline_total_bytes": 13497930,
+      "baseline_struct_hash": "bd79a6d5f9ae9e3e50c7e646919b8665e4c8031e97a4d9af53063b77b45a1664",
+      "baseline_content_hash": "3eeedee87748d2843a183b21aee83dfcc22d2040c94779e709724136de9cd765",
+      "note": "Edonsoft 框架（x64），来源 https://www.edonsoft.com/access-framework、帮助文档 https://www.edonsoft.com/access-framework-help.aspx（均无公开 git 仓库）。当前为上游 v202610.01（2026-10-09 发布，官方产品页列为当前版本）整体替换件：EdonSoft Development Framework.accdb / edonsoftCore.accde / Data.accdb / appsettings.json 取包内时间戳 2026-10-09 14:05-14:07；assets/ 新增 treeview、datatable 两组 Web 控件资源。edonsoft-docs/ 已按 2026-10-15 抓取的官方帮助页 18 个栏目重新完整转写：主题文档 01-12 与 14-18（新增 18-date-picker.md）、api/01-07 刷新、新增 api/08-ai-markdown.md / 09-date-picker.md / 10-treeview.md / 11-datatable.md / 12-mail.md，11-api.md 现为官方帮助页登记的 11 类 80 个公开函数（Web 数据控件一类按控件拆成两份文档，故共 12 份）。framework-overview.md 第 4 节对象清单与 13-architecture-source.md 第 13 节验证记录已在 2026-10-15 用 v202610.01 前端库真机重枚举刷新（56 窗体 / 10 模块 / 1 宏 / 0 报表 / 24 表定义 / 105 查询定义，含邮件中心四窗体与 basMailFormBuilder 模块）。实测另记两条：本地化补丁（2026-10-15，本技能对 vendored 原件的有意改动）appsettings.json 的 DbConnect 与前端 12 张链接表的 Connect 已重指到同目录 Data.accdb，作者机器绝对路径残留 0 处；公开函数结论更正——Application.Run 抛 disp_E_EXCEPTION 出自 pywin32 缺 makepy 类型信息时的封送失败，与登录状态无关，gencache.EnsureDispatch 早绑定或 Application.Eval 通道下 SQLText、HashPassword、ConvertToJson、AutoNumStr、GetUnreadCount 均返回正确值（AutoNumStr 对 tblChatHistory 返回 X202610150001），默认账号 admin/admin 经 VerifyPassword 校验为真并已实测登录进入 USysFrmMain。另记：本技能目录路径下 Access 以只读会话打开前端库（本地表 Updatable=False、开机弹 错误 #3027），复制到 D 盘工作目录后同一套文件可写并可登录，运行载体要放普通工作目录。"
     },
     {
       "id": "examples",
