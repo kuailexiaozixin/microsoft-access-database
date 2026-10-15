@@ -95,9 +95,9 @@
       "source_url": "https://www.edonsoft.com/access-framework",
       "registered_date": "2026-10-15",
       "baseline_file_count": 142,
-      "baseline_total_bytes": 13501835,
-      "baseline_struct_hash": "a261456065f61b5d71d3dcfae17124cdad41bd5e11129eeba8e72425fe0558e3",
-      "baseline_content_hash": "4bf9102d881a2b7617698e87d509e27d4c31b0b7d7ff26c2eb17b0dbdf57dae8",
+      "baseline_total_bytes": 13502216,
+      "baseline_struct_hash": "6179fbd36806d4f4a14aa5c9b84a01d962682dddb98e31659a0f2c1d5fd9756e",
+      "baseline_content_hash": "b65a2e52f972f7271f5a17d3d3547513bc4583c9950684182fe3d03a0f7e01a5",
       "note": "Edonsoft 框架（x64），来源 https://www.edonsoft.com/access-framework、帮助文档 https://www.edonsoft.com/access-framework-help.aspx（均无公开 git 仓库）。当前为上游 v202610.01（2026-10-09 发布，官方产品页列为当前版本）整体替换件：EdonSoft Development Framework.accdb / edonsoftCore.accde / Data.accdb / appsettings.json 取包内时间戳 2026-10-09 14:05-14:07；assets/ 新增 treeview、datatable 两组 Web 控件资源。edonsoft-docs/ 已按 2026-10-15 抓取的官方帮助页 18 个栏目重新完整转写：主题文档 01-12 与 14-18（新增 18-date-picker.md）、api/01-07 刷新、新增 api/08-ai-markdown.md / 09-date-picker.md / 10-treeview.md / 11-datatable.md / 12-mail.md，11-api.md 现为官方帮助页登记的 11 类 80 个公开函数（Web 数据控件一类按控件拆成两份文档，故共 12 份）。framework-overview.md 第 4 节对象清单与 13-architecture-source.md 第 13 节验证记录已在 2026-10-15 用 v202610.01 前端库真机重枚举刷新（56 窗体 / 10 模块 / 1 宏 / 0 报表 / 24 表定义 / 105 查询定义，含邮件中心四窗体与 basMailFormBuilder 模块）。实测另记两条：本地化补丁（2026-10-15，本技能对 vendored 原件的有意改动）appsettings.json 的 DbConnect 与前端 12 张链接表的 Connect 已重指到同目录 Data.accdb，作者机器绝对路径残留 0 处；公开函数结论更正——Application.Run 抛 DISP_E_EXCEPTION（0x80020009）出自 pywin32 缺 makepy 类型信息时的封送失败，与登录状态无关，gencache.EnsureDispatch 早绑定或 Application.Eval 通道下 SQLText、HashPassword、ConvertToJson、AutoNumStr、GetUnreadCount 均返回正确值（AutoNumStr 对 tblChatHistory 返回 X202610150001），默认账号 admin/admin 经 VerifyPassword(PlainText, StoredHash) 校验为真并已实测登录进入 USysFrmMain。基线统计口径：本条 note 里 edonsoft-docs/ 的技能自有 Markdown 与 vendored 二进制同处一个 local_dir，check_upstream_drift.py 的 walk_files 会一并计入，所以改文档也会挪 baseline_total_bytes / baseline_content_hash；walk_files 不过滤 *.laccdb，Access 实例存活时统计会多出 2 个文件、约 +128 字节，比对基线前先确认无残留实例。已撤销的旧结论：本技能目录路径下 Access 以只读会话打开前端库（Updatable=False / 错误 #3027）——2026-10-15 原地复测推翻，就地打开即可写、无弹窗、可登录。取代它的新事实：可写打开会就地改写包内 EdonSoft Development Framework.accdb 的字节（大小恒 5,509,120、sha256 逐轮变化），DAO 只读打开不改写，故跑过 Access 之后需重新 --register 并把改写记入 SYNCLOG.md；核对包内事实优先走 DAO 只读。"
     },
     {
