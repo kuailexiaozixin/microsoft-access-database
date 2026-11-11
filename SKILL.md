@@ -95,14 +95,15 @@ description: Microsoft Access 数据库应用系统开发技能（通用、不�
     - **源码与组成**：盟威库以加密/向导形态发布（`反编译打开Main.accdb.vbs` 提供 `/decompile` 入口），借鉴其组件划分与向导产物（自动编号、数据模块向导、导航菜单、查阅列表、启动菜单、报表向导、用户权限），不直接改库。
     - **可见可读部分**：`Config.ini`（登录/主题/自动登录配置格式，8.2 引用）、`Images/`（登录界面与主题图片：login_classic/login_standard/head.jpg/progress.jpg，4.2 界面资源参考）、教程 PDF（九章完整案例）。
   - **Edonsoft 开发框架**（`Edonsoft Development Framework_x64/`）：
-    - **组成**：`EdonSoft Development Framework.accdb`（前端宿主库）、`edonsoftCore.accde`（核心编译库）、`Data.accdb`（数据后端）、`appsettings.json`（连接配置）、`assets/`（主题/前端资源）。
-    - **能力与源码落点已按阶段融入工作流各步骤**（各步骤处均给出真实窗体/模块/函数落点，已枚举核实）：
+    - **组成**：`EdonSoft Development Framework.accdb`（前端宿主库）、`edonsoftCore.accde`（核心编译库）、`Data.accdb`（数据后端）、`appsettings.json`（连接配置）、`assets/`（主题/前端资源，实测 107 个文件，含 `treeview`、`datatable` 两组 Web 控件资源）。
+    - **能力与源码落点已按阶段融入工作流各步骤**（各步骤处均给出真实窗体/模块/函数落点，2026-11-11 在 v202611.02 前端库重新枚举核实：74 窗体 / 7 模块 / 1 宏 / 0 报表）：
       - 登录/RBAC → 8.2；通用查询 → 2.4；公共函数/操作日志 → 3.1；代码生成器 → 4.1
       - 搜索组合框/单据选择/进度条 → 4.2；动态菜单/待办/仪表盘 → 4.3；AccessAI → 6.1
       - 链接表/升迁/多后端 → 8.1；自动更新/设置 → 8.3
       - 完整落点清单见 `13-architecture-source.md` 第 8 节表格；框架库本体以 accde/加密发布，借鉴其落点与划分，不直接修改。
-    - **文档**：设计理念见 `framework-overview.md`；架构详述（前后端分离、三后端、RBAC、动态菜单 `FArguments`、`mode/` 源码目录、32/64 位）见 `13-architecture-source.md`；其余能力按官方帮助页左侧菜单完整转写为 `01-quickstart.md`~`12-faq.md` 与 `api/`（60 个公开函数，7 类）。
-    - **可见可读部分**：`framework-overview.md` 第 4 节为 COM 枚举核实的对象清单（AllForms/AllModules）与可见源码模块清单（用途与可移植见 3.1）；`appsettings.json`（多后端连接配置 ActiveBackend/Backends[]，8.1 引用）；`assets/`（css/js/images/Theme 前端资源，4.2 参考）。
+    - **文档**：设计理念见 `framework-overview.md`；架构详述（前后端分离、三后端、RBAC、动态菜单 `FArguments`、`mode/` 源码目录、32/64 位）见 `13-architecture-source.md`；其余能力按官方帮助页全部 23 个栏目完整转写为 `01-quickstart.md`~`23-attachments.md` 与 `api/`（v202611.02 帮助页登记 99 个公开函数、12 类，索引见 `11-api.md`；`19-admin.md`、`20-workflow.md`、`21-excel-import.md`、`22-ftp.md`、`23-attachments.md` 为本次新增主题，配图 19 张落在 `edonsoft-docs/assets/`）。新增主题尚未融入上面按阶段的落点映射。
+    - **可见可读部分**：`framework-overview.md` 第 4 节为 v202611.02 真机枚举的对象清单（前端 74 窗体 / 7 模块 / 1 宏 / 0 报表 / 15 本地表 + 25 链接表 / 3 查询，后端 `Data.accdb` 29 表；合计 44 张不同表、3 个查询，逐名清单见 `references/upstream-facts.json`）与可见源码模块清单（用途与可移植见 3.1）；`appsettings.json`（多后端连接配置 ActiveBackend/Backends[]，8.1 引用）；`assets/`（css/js/images/Theme/treeview/datatable 前端资源，4.2 参考）。
+    - **换机使用前置（2026-10-15 在 v202610.01 上的真机实测，历史记录；v202611.02 变更见段末，逐条证据见 `Edonsoft Development Framework_x64/edonsoft-docs/framework-overview.md` 第 7 节）**：① 技能目录内这份可以就地打开运行——本条先前记录的「这个路径下 Access 把前端库以只读会话打开（本地表 `Updatable=False`、开机弹 `错误 #3027 不能更新`、登录随之失败）」经 2026-10-15 原地复测推翻：`TS_TreeView`（本地表）与 `TS_Parameters`（链接表）的 `Updatable` 都是 `True`、开机弹窗 0 个、`admin/admin` 登录可用；卷与 8.3 短名策略、非 ASCII 目录名、路径长度、重解析点、DOS 只读属性、目录写权限、残留 `.laccdb`、`Zone.Identifier`、他进程占用、双实例并存、DAO 独占后端、强杀脏状态等候选解释逐轴实测排除，见 `Edonsoft Development Framework_x64/edonsoft-docs/framework-overview.md` §7 第 6 条。但**可写**打开会就地改写包内 `.accdb` 的字节（v202611.02 约 16,076,800、哈希逐轮变），把 `check_upstream_drift.py` 的内容基线跑脏；所以只核对包内事实走 DAO 只读打开，要真跑改动就把包复制到普通工作目录跑，或跑完重新 `--register` 并在 `SYNCLOG.md` 记明是本地运行造成的改写（§7 第 9 条）。② 上游包内链接表（v202611.02 为 25 张，旧版 12 张）与 `appsettings.json` 的 `DbConnect` 硬编码作者机器绝对路径，换目录后必须重指：DAO `td.Connect = ";DATABASE=<本地 Data.accdb 绝对路径>"` 后 `td.RefreshLink()`，无需独占打开（技能目录内这份已由本技能重指到位，属有意的本地化补丁，见 `SYNCLOG.md`）。③ `Application.Run` 抛 `DISP_E_EXCEPTION`（`0x80020009`）是 pywin32 缺 makepy 类型信息时的封送失败，不是登录前置：改用 `win32com.client.gencache.EnsureDispatch` 早绑定（`Run` 返回 `(返回值, 实参回显, …)` 元组，函数返回值取首元素）或 `Application.Eval("函数名(参数)")`；公开函数在未登录的开机态即可调用，`AutoNumStr("tblChatHistory","ID",4,"X","yyyymmdd")` → `X202610150001`。④ 默认账号 `admin/admin`（`VerifyPassword("admin", <TS_Users.FPassword 原值>)` → True）；官方文档只给界面登录，可编程触发用 `Run "LoginSub_OKClick", Forms("USysFrmLogin").Controls("sfrChild").Form`，形参是那个子窗体对象。⑤ `USysFrmAccessTreeView` / `USysFrmAccessDataTable` 在 v202610.01 及更早版本不在发布包内，需按生成器现场生成；**v202611.02 已随包发布**。⑥ v202611.02 相对旧版新增工作流、Excel 通用导入、FTP 文件管理、通用附件与日期/时间/周/区间选择系列窗体，后端表由 16 增至 29（新增 `TS_Workflow*` 与附件系列），临时查询 102 个已清理；本技能的链接表本地化补丁已在拉取时自动重做（25 张全部指向同目录 `Data.accdb`）。
   - **两框架差异对照**（各能力的实现方式、文档形态、借鉴场景对比）见 `references/framework-comparison.md`——它是**对照参考不是选型决策**：两框架能力有重叠时，按对照表选实现更成熟或更贴近业务形态的借鉴。
 - **输出物**：框架积木地图（能力 → 阶段 → 文档 → 用法，见上两段映射）。
 
@@ -127,6 +128,17 @@ description: Microsoft Access 数据库应用系统开发技能（通用、不�
     - **MCP 服务器本身**（stdio 协议、工具实现）在 `msaccess-vcs-mcp`（Python：经 COM 连 Access、`Application.Run` 调加载项 API）——加载项=能力提供方（API + 权限门），msaccess-vcs-mcp=协议适配方（MCP 工具 → COM → 加载项 API），两者缺一不可；
     - 权限门启用场景与威胁模型见 `msaccess-vcs-addin\Wiki\MCP-and-Automation.md`。
 - **输出物**：VCS 通道可用性报告（安装位=技能目录运行位、加载项版本、MCP 是否注册、探针结果）。
+
+### 0.4 上游锁定与自动同步（检测 → 拉取 → 复核）
+
+- **任务内容**：本技能把多路上游内容锁定在固定目录里，逐路登记来源与注册时指纹。上游会更新，锁定副本不能靠人记住去比对，所以"检测漂移"与"自动拉取"都要有脚本兜底；每次拉取后还要确认自研文档对上游的断言没被新版本推翻。
+- **任务要求**：
+  - 来源清单与基线指纹在 `manifest.json`，变更流水在 `SYNCLOG.md`，事实断言台账在 `references/upstream-facts.json`。约定是 **vendored 原件不手改**：任何主动改动都走"整体替换或按脚本打补丁 → 重新登记基线 → 追加日志"这条闭环。
+  - 三件事分开做，不要混：`scripts/check_upstream_drift.py` 只管离线本地漂移（逐路比对结构与内容哈希，本地副本被动过就报警，退出码 1 可被门禁拦截）；`scripts/track_upstream.py` 管在线上游版本、事实锚点与版本一致性三线检测（锚点记为过期即属硬漂移，必须先修自研文档再引用）；`scripts/sync_upstream.py` 管自动拉取与刷新。
+  - 拉取用 `--check` 先看哪些源落后、`--ensure` 一次拉齐全部落后源、`--force <源标识>` 强制重拉某一路、`--no-network` 做纯离线自检。有公开代码仓的源走压缩包整体刷新并把最新提交号写回清单；易登框架这类商业下载源会探测官网版本号、下载安装包、用 `tools/unrar/UnRAR.exe` 解包（该包是旧格式压缩档，常见解压工具打不开）、只在最终落盘位置做本地化补丁与原子替换，并保留不在安装包内的 `edonsoft-docs/`。所有拉取完成后自动重算基线并写日志。
+  - 易登框架的本地化补丁必须在**最终落盘目录**执行：前端库在打开时会按自身所在目录自动重链后端，若在临时解包目录先重链，连接串会被写回临时路径。补丁把配置文件里的数据库连接与 25 张链接表全部指向同目录 `Data.accdb`，使整包换机即可运行。
+  - 引用上游对象数、文件大小之前先跑 `scripts/track_upstream.py`；要看窗体与模块这类需要打开 Access 才能数的断言，加 `--deep`（会改写前端库字节，跑完必须重新登记基线）。同步上游后的固定顺序：跑三线检测 → 修过期的自研文档断言 → 重跑至全绿 → 重算基线 → 追加日志。
+- **输出物**：上游同步状态报告（各源是否已最新）、三线检测结论、基线登记结果与日志记录。
 
 ## 阶段 1：需求分析与系统设计
 
@@ -242,7 +254,7 @@ VBA 在本技能中的编写落点有三处：**标准模块**（本阶段 3.1�
     - Excel/PPT/HTML 导出（`modExportToExcel`/`modExportToPPT`/`modHTMLExport`/`modPasteDataToExcel`/`basExportChart`）、VBE 工具（`modVBETools`，批量注入标准错误处理）
     - 每个模块的用途、接口与用法见其 README 与 `wiki/`；财务系统第 5 章示范了模块与通用/专用函数的分层；需要新写时用 `templates/standard-module-stub.bas` 起步；
   - **生产级模块分层范本**：`msaccess-vcs-addin\Version Control.accda.src\modules\` 按 API/Core/Infrastructure/Install/Integration/Interfaces/Lib/Tests/Utility 十目录组织——真实加载项工程的模块划分与错误处理方式，写自己的通用模块库前可对照；
-  - **公开 API 面范本**：Edonsoft 把 60 个公开函数按 7 类组织（编号/SQL/窗体记录/杂项/IO/UI 交互/安全，全部 `Application.Run` 可调用，见 `Edonsoft Development Framework_x64/edonsoft-docs/11-api.md` 与 `api/` 目录）；代表性落点：`AutoNumStr`（流水号）、`ReadRecord`/`WriteRecord`/`DeleteRecord`（记录读写）、`JsonConverter`（JSON）、操作日志 `WriteLog`/`AuditData`（审计字段，见 `13-architecture-source.md` 第 8 节第 9/18 行）；
+  - **公开 API 面范本**：Edonsoft 把 99 个公开函数按 12 类组织（编号与数值 / SQL 与数据读取 / 表单与记录 / 日期·对象·设置 / 导出·文件·系统 / **导入与文件（v202611.02 新增）** / UI 与交互 / 安全与权限 / AI 与 Markdown / 日期与时间选择 / Web 数据控件 / 邮件服务，全部 `Application.Run` 可调用，见 `Edonsoft Development Framework_x64/edonsoft-docs/11-api.md` 与 `api/` 目录）；代表性落点：`AutoNumStr`（流水号）、`ReadRecord`/`WriteRecord`/`DeleteRecord`（记录读写）、`JsonConverter`（JSON）、操作日志 `WriteLog`/`AuditData`（审计字段，见 `13-architecture-source.md` 第 8 节第 9/18 行）；
   - **框架可见源码模块**
   - **记录集参考**：DAO 记录集操作官方做法（增删改查、遍历、一对多关系）见 `..\VBA-Docs\access\Concepts\Data-Access-Objects\`（27 篇）与 `ActiveX-Data-Objects\`（ADO）；
   - **对象模型 API 单页**：Access 应用级对象（`Application.CurrentDb`/`CurrentProject`/`CurrentUser`、`DoCmd.RunSQL`/`OpenForm`、`Module.AddFromString`）按名查 `..\VBA-Docs\api\Access.*.md`（总索引 `api\Access.md`、`api\overview\Access.md`）；

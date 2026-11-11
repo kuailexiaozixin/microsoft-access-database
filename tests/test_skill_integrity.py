@@ -132,6 +132,12 @@ REQUIRED_FILES = [
     "scripts/vcs_consistency_check.py",
     "scripts/rebuild_module_from_src.py",
     "scripts/install_vcs_addin.py",
+    # 上游跟踪机制（v2.32：自动拉取 / 三线检测 / 事实台账 / 旧格式压缩包解压器）
+    "scripts/sync_upstream.py",
+    "scripts/track_upstream.py",
+    "references/upstream-facts.json",
+    "tools/unrar/UnRAR.exe",
+    "tools/unrar/license.txt",
     "tests/vcs_com_verify.py",
     "tests/vcs_mcp_verify.py",
 ]
